@@ -19,14 +19,13 @@ export default function Home() {
               CLI TOOL · npm package
             </span>
             <h1 className="text-5xl md:text-7xl font-mono font-normal tracking-tight leading-[1.1] text-[#e8e8e8]">
-              Launch browser <br className="hidden md:block" />
-              extension projects <br className="hidden md:block" />
-              faster.
+              Scaffold <br className="hidden md:block" />
+              modern starter apps <br className="hidden md:block" />
+              instantly.
             </h1>
             <p className="text-lg md:text-xl text-[#666] mt-8 leading-relaxed max-w-xl">
-              bextool is an open-source npm CLI that scaffolds production-ready browser
-              extension starters for Chrome, Firefox, Edge, and Safari in a few guided
-              prompts.
+              bextool is a multi-project CLI that generates production-ready starter apps
+              from one interactive flow for frontend, backend, full-stack, mobile, extensions, and more.
             </p>
 
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mt-10 w-full">
@@ -63,7 +62,7 @@ export default function Home() {
               Features
             </p>
             <h2 className="text-3xl md:text-5xl font-mono font-normal tracking-tight leading-tight mb-4">
-              Build extensions your way.
+              Build apps your way.
             </h2>
           </div>
 
@@ -75,66 +74,62 @@ export default function Home() {
               </p>
               <div className="bg-[#111] border border-[#333] rounded-lg p-4 space-y-3">
                 <div className="flex items-center justify-between rounded border border-[#2a2a2a] bg-[#141414] px-3 py-2">
-                  <span className="text-sm text-[#666]">Project name</span>
-                  <span className="text-sm text-[#e8e8e8] font-mono">my-extension</span>
+                  <span className="text-sm text-[#666]">Category</span>
+                  <span className="text-sm text-[#e8e8e8] font-mono">Full-Stack</span>
                 </div>
                 <div className="flex items-center justify-between rounded border border-[#2a2a2a] bg-[#141414] px-3 py-2">
-                  <span className="text-sm text-[#666]">Browser</span>
-                  <span className="text-sm text-[#e8e8e8] font-mono">Chrome MV3</span>
+                  <span className="text-sm text-[#666]">Framework</span>
+                  <span className="text-sm text-[#e8e8e8] font-mono">Next.js App Router</span>
                 </div>
                 <div className="flex items-center justify-between rounded border border-[#2a2a2a] bg-[#141414] px-3 py-2">
-                  <span className="text-sm text-[#666]">Starter</span>
-                  <span className="text-sm text-[#e8e8e8] font-mono">Popup + BG</span>
+                  <span className="text-sm text-[#666]">Pkg Manager</span>
+                  <span className="text-sm text-[#e8e8e8] font-mono">pnpm</span>
                 </div>
               </div>
             </article>
 
             <article className="bg-[#141414] border border-[#2a2a2a] rounded-xl p-7 overflow-hidden">
-              <h3 className="text-2xl font-normal tracking-tight mb-2">Starter Templates</h3>
+              <h3 className="text-2xl font-normal tracking-tight mb-2">15+ Supported Scaffolds</h3>
               <p className="text-base text-[#666] leading-relaxed mb-6">
-                Pick a starter and immediately get the right folder structure and scripts.
+                Pick from a massive registry of production-ready templates for any stack.
               </p>
               <div className="grid grid-cols-2 gap-3">
                 <div className="rounded border border-[#333] bg-[#111] p-4">
-                  <p className="text-sm text-[#666] mb-2">Template</p>
-                  <p className="text-base text-[#e8e8e8] font-mono">Popup</p>
+                  <p className="text-sm text-[#666] mb-2">Frontend</p>
+                  <p className="text-sm text-[#e8e8e8] font-mono">React+Vite</p>
                 </div>
                 <div className="rounded border border-[#333] bg-[#111] p-4">
-                  <p className="text-sm text-[#666] mb-2">Template</p>
-                  <p className="text-base text-[#e8e8e8] font-mono">Background</p>
+                  <p className="text-sm text-[#666] mb-2">Backend</p>
+                  <p className="text-sm text-[#e8e8e8] font-mono">Node+Express</p>
                 </div>
                 <div className="rounded border border-[#333] bg-[#111] p-4">
-                  <p className="text-sm text-[#666] mb-2">Template</p>
-                  <p className="text-base text-[#e8e8e8] font-mono">Content Script</p>
+                  <p className="text-sm text-[#666] mb-2">Mobile</p>
+                  <p className="text-sm text-[#e8e8e8] font-mono">React Native</p>
                 </div>
                 <div className="rounded border border-[#333] bg-[#111] p-4">
-                  <p className="text-sm text-[#666] mb-2">Template</p>
-                  <p className="text-base text-[#e8e8e8] font-mono">Options Page</p>
+                  <p className="text-sm text-[#666] mb-2">Extension</p>
+                  <p className="text-sm text-[#e8e8e8] font-mono">Chrome MV3</p>
                 </div>
               </div>
             </article>
 
             <article className="bg-[#141414] border border-[#2a2a2a] rounded-xl p-7 overflow-hidden">
-              <h3 className="text-2xl font-normal tracking-tight mb-2">Manifest Composer</h3>
+              <h3 className="text-2xl font-normal tracking-tight mb-2">Extensible Architecture</h3>
               <p className="text-base text-[#666] leading-relaxed mb-6">
-                Manifest and permissions are generated from your inputs with browser-aware
-                defaults.
+                Powered by Handlebars templates and a modular generator system under the hood.
               </p>
               <div className="bg-[#111] border border-[#333] rounded-lg p-4 font-mono text-sm leading-relaxed">
                 <p className="text-[#666]">
-                  &quot;manifest_version&quot;: <span className="text-[#ff6b00]">3</span>
+                  {"// src/config/frameworks.js"}
                 </p>
                 <p className="text-[#666]">
-                  &quot;name&quot;: <span className="text-[#e8e8e8]">&quot;my-extension&quot;</span>
+                  <span className="text-[#ff6b00]">export</span> <span className="text-[#e8e8e8]">const frameworks</span> = [
                 </p>
                 <p className="text-[#666]">
-                  &quot;permissions&quot;: [<span className="text-[#e8e8e8]">&quot;tabs&quot;, &quot;storage&quot;</span>]
+                  {"  {"} <span className="text-[#e8e8e8]">&quot;name&quot;: &quot;frontend&quot;</span>, <span className="text-[#e8e8e8]">...</span> {"}"}
                 </p>
                 <p className="text-[#666]">
-                  &quot;action&quot;:{" "}
-                  <span className="text-[#e8e8e8]">
-                    {`{"default_popup":"popup/popup.html"}`}
-                  </span>
+                  ];
                 </p>
               </div>
             </article>
@@ -171,24 +166,28 @@ export default function Home() {
       <section className="py-24 border-t border-[#1a1a1a] bg-[#0d0d0d] overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <p className="text-sm font-mono text-[#666] uppercase tracking-widest mb-10">
-            Cross-browser by default
+            Universal Template Ecosystem
           </p>
           <div className="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-60">
             <div className="flex flex-col items-center gap-3 hover:opacity-100 transition-opacity">
-              <Icon icon="simple-icons:googlechrome" className="text-4xl" />
-              <span className="text-base font-normal tracking-tight">Chrome</span>
+              <Icon icon="simple-icons:react" className="text-4xl" />
+              <span className="text-base font-normal tracking-tight">React</span>
             </div>
             <div className="flex flex-col items-center gap-3 hover:opacity-100 transition-opacity">
-              <Icon icon="simple-icons:firefoxbrowser" className="text-4xl" />
-              <span className="text-base font-normal tracking-tight">Firefox</span>
+              <Icon icon="simple-icons:nextdotjs" className="text-4xl" />
+              <span className="text-base font-normal tracking-tight">Next.js</span>
             </div>
             <div className="flex flex-col items-center gap-3 hover:opacity-100 transition-opacity">
-              <Icon icon="simple-icons:microsoftedge" className="text-4xl" />
-              <span className="text-base font-normal tracking-tight">Edge</span>
+              <Icon icon="simple-icons:nodedotjs" className="text-4xl" />
+              <span className="text-base font-normal tracking-tight">Node.js</span>
             </div>
             <div className="flex flex-col items-center gap-3 hover:opacity-100 transition-opacity">
-              <Icon icon="simple-icons:safari" className="text-4xl" />
-              <span className="text-base font-normal tracking-tight">Safari</span>
+              <Icon icon="simple-icons:docker" className="text-4xl" />
+              <span className="text-base font-normal tracking-tight">Docker</span>
+            </div>
+            <div className="flex flex-col items-center gap-3 hover:opacity-100 transition-opacity">
+              <Icon icon="simple-icons:npm" className="text-4xl" />
+              <span className="text-base font-normal tracking-tight">NPM</span>
             </div>
           </div>
         </div>
@@ -240,12 +239,11 @@ export default function Home() {
                   </h3>
                   <p className="text-base text-[#666] leading-relaxed">
                     The CLI will prompt you for:{" "}
-                    <span className="text-[#e8e8e8]">project name</span>,{" "}
-                    <span className="text-[#e8e8e8]">description</span>,{" "}
-                    <span className="text-[#e8e8e8]">initial version</span>,{" "}
-                    <span className="text-[#e8e8e8]">target browser</span>,{" "}
-                    <span className="text-[#e8e8e8]">starter type</span>, and{" "}
-                    <span className="text-[#e8e8e8]">permissions</span>.
+                    <span className="text-[#e8e8e8]">project category</span>,{" "}
+                    <span className="text-[#e8e8e8]">framework</span>,{" "}
+                    <span className="text-[#e8e8e8]">package manager</span>, as well as{" "}
+                    shared metadata like <span className="text-[#e8e8e8]">name</span> and{" "}
+                    <span className="text-[#e8e8e8]">description</span>.
                   </p>
                 </div>
               </div>
@@ -256,7 +254,7 @@ export default function Home() {
                 <h2 className="text-2xl font-mono font-normal tracking-tight">
                   Generated Output
                 </h2>
-                <span className="text-sm text-[#666] font-mono">Chrome MV3</span>
+                <span className="text-sm text-[#666] font-mono">Next.js App Router</span>
               </div>
 
               <OutputTabs />
