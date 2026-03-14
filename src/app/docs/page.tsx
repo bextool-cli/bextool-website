@@ -4,12 +4,94 @@ import { Icon } from "@iconify/react";
 import CopyCodeButton from "@/components/CopyCodeButton";
 
 export const metadata: Metadata = {
-  title: "bextool Docs — Multi-Project CLI Documentation",
+  title: "Docs — Multi-Project CLI Documentation",
+  description:
+    "Official bextool documentation: installation, interactive flow, CLI commands, supported starters, and extension guide.",
+  keywords: [
+    "bextool docs",
+    "CLI documentation",
+    "scaffolding guide",
+    "starter templates docs",
+  ],
+  alternates: {
+    canonical: "/docs",
+  },
+  openGraph: {
+    title: "bextool Docs — Multi-Project CLI Documentation",
+    description:
+      "Learn installation, interactive flow, commands, supported starters, and advanced extension patterns for bextool.",
+    url: "/docs",
+    images: [
+      {
+        url: "/logo.png",
+        width: 512,
+        height: 512,
+        alt: "bextool logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "bextool Docs — Multi-Project CLI Documentation",
+    description:
+      "Official bextool docs for setup, usage, and advanced template extension.",
+    images: ["/logo.png"],
+  },
 };
 
 export default function Docs() {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://bextool.dev";
+
+  const docsArticleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    headline: "bextool Documentation",
+    description:
+      "Installation, usage, starter registry, and extension guide for bextool CLI.",
+    author: {
+      "@type": "Organization",
+      name: "bextool",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "bextool",
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteUrl}/logo.png`,
+      },
+    },
+    mainEntityOfPage: `${siteUrl}/docs`,
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: `${siteUrl}/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Docs",
+        item: `${siteUrl}/docs`,
+      },
+    ],
+  };
+
   return (
-    <main className="max-w-7xl mx-auto px-4 sm:px-6 py-10 md:py-14">
+    <main id="main-content" className="max-w-7xl mx-auto px-4 sm:px-6 py-10 md:py-14">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(docsArticleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <DocsHighlighter />
       
       <div className="grid lg:grid-cols-[280px_minmax(0,1fr)] gap-8 lg:gap-16 items-start">
@@ -76,7 +158,7 @@ export default function Docs() {
               </p>
               <ul className="flex flex-col gap-2 border-l border-[#2a2a2a] pl-3 ml-2">
                 <li>
-                  <a href="https://github.com/bextool-cli/bextool" target="_blank" rel="noreferrer" className="block text-[#888] hover:text-[#e8e8e8] transition-colors py-1 flex items-center gap-2">
+                  <a href="https://github.com/bextool-cli/bextool" target="_blank" rel="noreferrer" className="text-[#888] hover:text-[#e8e8e8] transition-colors py-1 flex items-center gap-2">
                     GitHub <Icon icon="solar:arrow-right-up-linear" />
                   </a>
                 </li>

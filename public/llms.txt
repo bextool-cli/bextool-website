@@ -1,0 +1,18 @@
+# bextool
+
+> Open-source multi-project scaffolding CLI for modern apps.
+
+## Canonical
+- https://bextool.dev/
+- https://bextool.dev/docs
+
+## Project Links
+- Repository: https://github.com/bextool-cli/bextool
+- Website Source: https://github.com/bextool-cli/bextool-website
+- npm: https://www.npmjs.com/package/bextool
+
+## Key Topics
+- CLI scaffolding
+- starter templates
+- frontend/backend/full-stack/mobile/extension starters
+- documentation and usage guides

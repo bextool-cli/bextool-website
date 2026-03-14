@@ -12,9 +12,17 @@ export default function Footer() {
       <footer className="border-t border-[#1a1a1a] bg-[#0d0d0d] py-10 mt-16">
         <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[#666] text-sm">
           <span>bextool documentation</span>
-          <Link href="/" className="hover:text-[#e8e8e8] transition-colors font-mono">
-            Back to home
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link href="/" className="hover:text-[#e8e8e8] transition-colors font-mono">
+              Back to home
+            </Link>
+            <Link href="/privacy" className="hover:text-[#e8e8e8] transition-colors font-mono">
+              Privacy
+            </Link>
+            <Link href="/terms" className="hover:text-[#e8e8e8] transition-colors font-mono">
+              Terms
+            </Link>
+          </div>
         </div>
       </footer>
     );
@@ -53,6 +61,20 @@ export default function Footer() {
           >
             Shubham Raj (Shubham-1068)
           </a>
+        </div>
+        <div className="text-[#666] text-sm flex items-center gap-4 font-mono">
+          <Link href="/about" className="hover:text-[#e8e8e8] transition-colors">
+            About
+          </Link>
+          <Link href="/contact" className="hover:text-[#e8e8e8] transition-colors">
+            Contact
+          </Link>
+          <Link href="/privacy" className="hover:text-[#e8e8e8] transition-colors">
+            Privacy
+          </Link>
+          <Link href="/terms" className="hover:text-[#e8e8e8] transition-colors">
+            Terms
+          </Link>
         </div>
       </div>
     </footer>

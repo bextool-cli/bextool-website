@@ -29,13 +29,13 @@ export default function Navbar() {
             <a href="#quick-start" className="hover:text-[#e8e8e8] transition-colors">
               Learn
             </a>
-            <a href="#project-details" className="hover:text-[#e8e8e8] transition-colors">
+            <a href="#supported-frameworks" className="hover:text-[#e8e8e8] transition-colors">
               Project
             </a>
-            <a href="#configuration" className="hover:text-[#e8e8e8] transition-colors">
+            <a href="#extending-the-cli" className="hover:text-[#e8e8e8] transition-colors">
               Configs
             </a>
-            <a href="#commands" className="hover:text-[#e8e8e8] transition-colors">
+            <a href="#cli-commands" className="hover:text-[#e8e8e8] transition-colors">
               Commands
             </a>
           </div>
@@ -113,13 +113,13 @@ export default function Navbar() {
               <a href="#quick-start" onClick={closeMenu} className="hover:text-[#e8e8e8] transition-colors">
                 Learn
               </a>
-              <a href="#project-details" onClick={closeMenu} className="hover:text-[#e8e8e8] transition-colors">
+              <a href="#supported-frameworks" onClick={closeMenu} className="hover:text-[#e8e8e8] transition-colors">
                 Project
               </a>
-              <a href="#configuration" onClick={closeMenu} className="hover:text-[#e8e8e8] transition-colors">
+              <a href="#extending-the-cli" onClick={closeMenu} className="hover:text-[#e8e8e8] transition-colors">
                 Configs
               </a>
-              <a href="#commands" onClick={closeMenu} className="hover:text-[#e8e8e8] transition-colors">
+              <a href="#cli-commands" onClick={closeMenu} className="hover:text-[#e8e8e8] transition-colors">
                 Commands
               </a>
               <Link href="/" onClick={closeMenu} className="hover:text-[#e8e8e8] transition-colors">
@@ -156,7 +156,7 @@ export default function Navbar() {
               </Link>
             )}
             <a
-              href="https://github.com/Abhiraj35/bextool"
+              href="https://github.com/bextool-cli/bextool"
               target="_blank"
               rel="noreferrer"
               className="hover:text-[#e8e8e8] transition-colors text-xs font-mono border border-[#333] px-3 py-2 rounded flex items-center gap-2 text-[#666]"

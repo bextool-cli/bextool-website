@@ -1,16 +1,79 @@
+import { Metadata } from "next";
 import { Icon } from "@iconify/react";
 import TerminalAnimation from "@/components/TerminalAnimation";
 import OutputTabs from "@/components/OutputTabs";
 import CopyButton from "@/components/CopyButton";
 
+export const metadata: Metadata = {
+  title: "Scaffold modern starter apps instantly",
+  description:
+    "Generate production-ready starter apps with bextool for frontend, backend, full-stack, mobile, browser extensions, and more.",
+  keywords: [
+    "bextool CLI",
+    "scaffolding tool",
+    "starter templates",
+    "full-stack starter",
+    "browser extension starter",
+  ],
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "bextool — Scaffold modern starter apps instantly",
+    description:
+      "Generate production-ready starter apps with one interactive CLI flow.",
+    url: "/",
+    images: [
+      {
+        url: "/logo.png",
+        width: 512,
+        height: 512,
+        alt: "bextool logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "bextool — Scaffold modern starter apps instantly",
+    description:
+      "Generate production-ready starter apps with one interactive CLI flow.",
+    images: ["/logo.png"],
+  },
+};
+
 export default function Home() {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://bextool.dev";
+
+  const softwareApplicationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "bextool",
+    applicationCategory: "DeveloperApplication",
+    operatingSystem: "macOS, Linux, Windows",
+    softwareVersion: "latest",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+    url: siteUrl,
+    downloadUrl: "https://www.npmjs.com/package/bextool",
+    codeRepository: "https://github.com/bextool-cli/bextool",
+    description:
+      "An open-source multi-project CLI for scaffolding modern starter apps.",
+  };
+
   return (
-    <main>
+    <main id="main-content">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationJsonLd) }}
+      />
       <section
         id="home"
         className="min-h-[90vh] flex items-center py-20 lg:py-0 relative overflow-hidden"
       >
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f1f1f_1px,transparent_1px),linear-gradient(to_bottom,#1f1f1f_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20 pointer-events-none"></div>
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f1f1f_1px,transparent_1px),linear-gradient(to_bottom,#1f1f1f_1px,transparent_1px)] bg-size-[4rem_4rem] mask-[radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20 pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-16 items-center relative z-10">
           <div className="flex flex-col items-start max-w-2xl">
@@ -41,7 +104,7 @@ export default function Home() {
           </div>
 
           <div className="w-full relative group">
-            <div className="absolute -inset-1 bg-gradient-to-r from-[#ff6b00]/20 to-transparent blur-2xl opacity-50 group-hover:opacity-100 transition duration-1000"></div>
+            <div className="absolute -inset-1 bg-linear-to-r from-[#ff6b00]/20 to-transparent blur-2xl opacity-50 group-hover:opacity-100 transition duration-1000"></div>
             <div className="bg-[#111] border border-[#333] rounded-xl overflow-hidden shadow-2xl relative">
               <div className="bg-[#1a1a1a] border-b border-[#333] px-4 py-3 flex items-center gap-2">
                 <div className="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
@@ -203,7 +266,7 @@ export default function Home() {
 
               <div className="space-y-12">
                 <div className="relative pl-8 border-l border-[#2a2a2a]">
-                  <div className="absolute left-[-17px] top-0 w-8 h-8 rounded-full bg-[#111] border border-[#333] flex items-center justify-center text-[#ff6b00] font-mono text-sm">
+                  <div className="absolute -left-4.25 top-0 w-8 h-8 rounded-full bg-[#111] border border-[#333] flex items-center justify-center text-[#ff6b00] font-mono text-sm">
                     1
                   </div>
                   <h3 className="text-xl font-normal tracking-tight mb-4">Installation</h3>
@@ -217,7 +280,7 @@ export default function Home() {
                 </div>
 
                 <div className="relative pl-8 border-l border-[#2a2a2a]">
-                  <div className="absolute left-[-17px] top-0 w-8 h-8 rounded-full bg-[#111] border border-[#333] flex items-center justify-center text-[#ff6b00] font-mono text-sm">
+                  <div className="absolute -left-4.25 top-0 w-8 h-8 rounded-full bg-[#111] border border-[#333] flex items-center justify-center text-[#ff6b00] font-mono text-sm">
                     2
                   </div>
                   <h3 className="text-xl font-normal tracking-tight mb-4">Run the CLI</h3>
@@ -231,7 +294,7 @@ export default function Home() {
                 </div>
 
                 <div className="relative pl-8 border-l border-transparent">
-                  <div className="absolute left-[-17px] top-0 w-8 h-8 rounded-full bg-[#111] border border-[#333] flex items-center justify-center text-[#ff6b00] font-mono text-sm">
+                  <div className="absolute -left-4.25 top-0 w-8 h-8 rounded-full bg-[#111] border border-[#333] flex items-center justify-center text-[#ff6b00] font-mono text-sm">
                     3
                   </div>
                   <h3 className="text-xl font-normal tracking-tight mb-2">
