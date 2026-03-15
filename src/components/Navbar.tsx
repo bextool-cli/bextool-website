@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Icon } from "@iconify/react";
+import { ArrowLeft, Github, Menu, Package, X } from "lucide-react";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -20,7 +21,14 @@ export default function Navbar() {
           href="/"
           className="flex items-center gap-2 font-mono font-normal text-lg tracking-tight hover:text-[#ff6b00] transition-colors"
         >
-          <img src="/logo.png" alt="bextool logo" className="w-5 h-5 rounded-sm" />
+          <Image
+            src="/logo.png"
+            alt="bextool logo"
+            width={20}
+            height={20}
+            className="rounded-sm"
+            priority
+          />
           <span>bextool</span>
         </Link>
 
@@ -41,7 +49,7 @@ export default function Navbar() {
           </div>
         ) : (
           <div className="hidden lg:flex items-center gap-7 text-sm text-[#888]">
-            <Link href="/docs" className="hover:text-[#e8e8e8] transition-colors">
+            <Link href="/docs" prefetch={false} className="hover:text-[#e8e8e8] transition-colors">
               Docs
             </Link>
             <a href="#features" className="hover:text-[#e8e8e8] transition-colors">
@@ -65,7 +73,7 @@ export default function Navbar() {
               href="/"
               className="hover:text-[#e8e8e8] transition-colors text-sm font-mono border border-[#333] px-3 py-2 rounded flex items-center gap-2"
             >
-              <Icon icon="solar:arrow-left-linear" className="text-base" />
+              <ArrowLeft aria-hidden="true" className="w-4 h-4" />
               Home
             </Link>
           )}
@@ -75,7 +83,7 @@ export default function Navbar() {
             rel="noreferrer"
             className="hover:text-[#e8e8e8] transition-colors text-sm font-mono border border-[#333] px-3 py-2 rounded flex items-center gap-2"
           >
-            <Icon icon="mdi:github" className="text-base" />
+            <Github aria-hidden="true" className="w-4 h-4" />
             GitHub
           </a>
           {!isDocs && (
@@ -85,7 +93,7 @@ export default function Navbar() {
               rel="noreferrer"
               className="hover:text-[#e8e8e8] transition-colors text-sm font-mono border border-[#333] px-3 py-2 rounded flex items-center gap-2"
             >
-              <Icon icon="solar:box-linear" className="text-base" />
+              <Package aria-hidden="true" className="w-4 h-4" />
               npm
             </a>
           )}
@@ -99,10 +107,11 @@ export default function Navbar() {
           aria-label="Toggle navigation menu"
           className="sm:hidden inline-flex items-center justify-center border border-[#333] rounded p-2 text-[#666] hover:text-[#e8e8e8] transition-colors"
         >
-          <Icon
-            icon={isMobileMenuOpen ? "solar:close-circle-linear" : "solar:hamburger-menu-linear"}
-            className="text-xl"
-          />
+          {isMobileMenuOpen ? (
+            <X aria-hidden="true" className="w-5 h-5" />
+          ) : (
+            <Menu aria-hidden="true" className="w-5 h-5" />
+          )}
         </button>
       </div>
 
@@ -128,7 +137,7 @@ export default function Navbar() {
             </div>
           ) : (
             <div className="flex flex-col gap-3 text-sm text-[#888]">
-              <Link href="/docs" onClick={closeMenu} className="hover:text-[#e8e8e8] transition-colors">
+              <Link href="/docs" prefetch={false} onClick={closeMenu} className="hover:text-[#e8e8e8] transition-colors">
                 Docs
               </Link>
               <a href="#features" onClick={closeMenu} className="hover:text-[#e8e8e8] transition-colors">
@@ -151,7 +160,7 @@ export default function Navbar() {
                 href="/"
                 className="hover:text-[#e8e8e8] transition-colors text-xs font-mono border border-[#333] px-3 py-2 rounded flex items-center gap-2 text-[#666]"
               >
-                <Icon icon="solar:arrow-left-linear" className="text-base" />
+                <ArrowLeft aria-hidden="true" className="w-4 h-4" />
                 Home
               </Link>
             )}
@@ -161,7 +170,7 @@ export default function Navbar() {
               rel="noreferrer"
               className="hover:text-[#e8e8e8] transition-colors text-xs font-mono border border-[#333] px-3 py-2 rounded flex items-center gap-2 text-[#666]"
             >
-              <Icon icon="mdi:github" className="text-base" />
+              <Github aria-hidden="true" className="w-4 h-4" />
               GitHub
             </a>
             {!isDocs && (
@@ -171,7 +180,7 @@ export default function Navbar() {
                 rel="noreferrer"
                 className="hover:text-[#e8e8e8] transition-colors text-xs font-mono border border-[#333] px-3 py-2 rounded flex items-center gap-2 text-[#666]"
               >
-                <Icon icon="solar:box-linear" className="text-base" />
+                <Package aria-hidden="true" className="w-4 h-4" />
                 npm
               </a>
             )}

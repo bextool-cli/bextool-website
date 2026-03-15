@@ -21,7 +21,7 @@ export default function TermsPage() {
         Project code and templates are distributed under their respective open-source licenses.
       </p>
       <p className="text-[#a3a3a3] leading-relaxed">
-        The website content is provided "as is" without warranties, and external links are subject to third-party terms.
+        The website content is provided &quot;as is&quot; without warranties, and external links are subject to third-party terms.
       </p>
     </main>
   );

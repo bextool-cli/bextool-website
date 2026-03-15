@@ -1,13 +1,12 @@
 import { Metadata } from "next";
-import { Icon } from "@iconify/react";
-import TerminalAnimation from "@/components/TerminalAnimation";
-import OutputTabs from "@/components/OutputTabs";
 import CopyButton from "@/components/CopyButton";
+import LazyTerminalAnimation from "@/components/LazyTerminalAnimation";
+import LazyOutputTabs from "@/components/LazyOutputTabs";
 
 export const metadata: Metadata = {
-  title: "Scaffold modern starter apps instantly",
+  title: "Project Scaffolding CLI for Modern Starter Apps",
   description:
-    "Generate production-ready starter apps with bextool for frontend, backend, full-stack, mobile, browser extensions, and more.",
+    "bextool is an open-source project scaffolding CLI and app generator to create production-ready starter apps for frontend, backend, full-stack, mobile, and browser extensions.",
   keywords: [
     "bextool CLI",
     "scaffolding tool",
@@ -19,9 +18,9 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "bextool — Scaffold modern starter apps instantly",
+    title: "bextool — Project Scaffolding CLI for Modern Starter Apps",
     description:
-      "Generate production-ready starter apps with one interactive CLI flow.",
+      "Create production-ready starter apps with one interactive CLI flow.",
     url: "/",
     images: [
       {
@@ -34,9 +33,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "bextool — Scaffold modern starter apps instantly",
+    title: "bextool — Project Scaffolding CLI for Modern Starter Apps",
     description:
-      "Generate production-ready starter apps with one interactive CLI flow.",
+      "Create production-ready starter apps with one interactive CLI flow.",
     images: ["/logo.png"],
   },
 };
@@ -78,17 +77,18 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-16 items-center relative z-10">
           <div className="flex flex-col items-start max-w-2xl">
             <span className="inline-flex items-center gap-2 px-3 py-1 text-xs font-mono text-[#666] border border-[#2a2a2a] rounded-full mb-8 bg-[#141414]">
-              <Icon icon="solar:box-minimalistic-linear" className="text-sm" />
+              <span aria-hidden="true" className="text-sm">□</span>
               CLI TOOL · npm package
             </span>
             <h1 className="text-5xl md:text-7xl font-mono font-normal tracking-tight leading-[1.1] text-[#e8e8e8]">
-              Scaffold <br className="hidden md:block" />
-              modern starter apps <br className="hidden md:block" />
-              instantly.
+              Project scaffolding CLI <br className="hidden md:block" />
+              for modern starter apps <br className="hidden md:block" />
+              in seconds.
             </h1>
             <p className="text-lg md:text-xl text-[#666] mt-8 leading-relaxed max-w-xl">
-              bextool is a multi-project CLI that generates production-ready starter apps
-              from one interactive flow for frontend, backend, full-stack, mobile, extensions, and more.
+              bextool is an open-source app generator CLI that scaffolds production-ready
+              starter apps from one interactive flow for frontend, backend, full-stack,
+              mobile, browser extensions, and more.
             </p>
 
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mt-10 w-full">
@@ -112,7 +112,7 @@ export default function Home() {
                 <div className="w-3 h-3 rounded-full bg-[#27c93f]"></div>
                 <div className="ml-auto text-xs font-mono text-[#666]">bash</div>
               </div>
-              <TerminalAnimation />
+              <LazyTerminalAnimation />
             </div>
           </div>
         </div>
@@ -125,7 +125,7 @@ export default function Home() {
               Features
             </p>
             <h2 className="text-3xl md:text-5xl font-mono font-normal tracking-tight leading-tight mb-4">
-              Build apps your way.
+              Scaffolding features for every stack.
             </h2>
           </div>
 
@@ -133,7 +133,7 @@ export default function Home() {
             <article className="bg-[#141414] border border-[#2a2a2a] rounded-xl p-7 overflow-hidden">
               <h3 className="text-2xl font-normal tracking-tight mb-2">Guided CLI Flow</h3>
               <p className="text-base text-[#666] leading-relaxed mb-6">
-                A clean interactive prompt sequence that gets your project scaffolded in minutes.
+                A clean interactive app scaffolding flow that generates starter projects in minutes.
               </p>
               <div className="bg-[#111] border border-[#333] rounded-lg p-4 space-y-3">
                 <div className="flex items-center justify-between rounded border border-[#2a2a2a] bg-[#141414] px-3 py-2">
@@ -154,7 +154,7 @@ export default function Home() {
             <article className="bg-[#141414] border border-[#2a2a2a] rounded-xl p-7 overflow-hidden">
               <h3 className="text-2xl font-normal tracking-tight mb-2">15+ Supported Scaffolds</h3>
               <p className="text-base text-[#666] leading-relaxed mb-6">
-                Pick from a massive registry of production-ready templates for any stack.
+                Pick from a broad registry of production-ready starter templates for any stack.
               </p>
               <div className="grid grid-cols-2 gap-3">
                 <div className="rounded border border-[#333] bg-[#111] p-4">
@@ -179,7 +179,7 @@ export default function Home() {
             <article className="bg-[#141414] border border-[#2a2a2a] rounded-xl p-7 overflow-hidden">
               <h3 className="text-2xl font-normal tracking-tight mb-2">Extensible Architecture</h3>
               <p className="text-base text-[#666] leading-relaxed mb-6">
-                Powered by Handlebars templates and a modular generator system under the hood.
+                Powered by Handlebars templates and a modular CLI generator architecture.
               </p>
               <div className="bg-[#111] border border-[#333] rounded-lg p-4 font-mono text-sm leading-relaxed">
                 <p className="text-[#666]">
@@ -208,15 +208,15 @@ export default function Home() {
               <div className="bg-[#111] border border-[#333] rounded-lg p-5">
                 <ul className="space-y-3 text-sm">
                   <li className="flex items-center gap-2 text-[#e8e8e8]">
-                    <Icon icon="solar:check-circle-linear" className="text-[#ff6b00]" />
+                    <span aria-hidden="true" className="text-[#ff6b00]">✓</span>
                     npm scripts for dev and build
                   </li>
                   <li className="flex items-center gap-2 text-[#e8e8e8]">
-                    <Icon icon="solar:check-circle-linear" className="text-[#ff6b00]" />
+                    <span aria-hidden="true" className="text-[#ff6b00]">✓</span>
                     README and package metadata
                   </li>
                   <li className="flex items-center gap-2 text-[#e8e8e8]">
-                    <Icon icon="solar:check-circle-linear" className="text-[#ff6b00]" />
+                    <span aria-hidden="true" className="text-[#ff6b00]">✓</span>
                     Icons placeholder set
                   </li>
                 </ul>
@@ -233,23 +233,23 @@ export default function Home() {
           </p>
           <div className="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-60">
             <div className="flex flex-col items-center gap-3 hover:opacity-100 transition-opacity">
-              <Icon icon="simple-icons:react" className="text-4xl" />
+              <span aria-hidden="true" className="text-4xl">⚛</span>
               <span className="text-base font-normal tracking-tight">React</span>
             </div>
             <div className="flex flex-col items-center gap-3 hover:opacity-100 transition-opacity">
-              <Icon icon="simple-icons:nextdotjs" className="text-4xl" />
+              <span aria-hidden="true" className="text-4xl">▲</span>
               <span className="text-base font-normal tracking-tight">Next.js</span>
             </div>
             <div className="flex flex-col items-center gap-3 hover:opacity-100 transition-opacity">
-              <Icon icon="simple-icons:nodedotjs" className="text-4xl" />
+              <span aria-hidden="true" className="text-4xl">⬢</span>
               <span className="text-base font-normal tracking-tight">Node.js</span>
             </div>
             <div className="flex flex-col items-center gap-3 hover:opacity-100 transition-opacity">
-              <Icon icon="simple-icons:docker" className="text-4xl" />
+              <span aria-hidden="true" className="text-4xl">🐳</span>
               <span className="text-base font-normal tracking-tight">Docker</span>
             </div>
             <div className="flex flex-col items-center gap-3 hover:opacity-100 transition-opacity">
-              <Icon icon="simple-icons:npm" className="text-4xl" />
+              <span aria-hidden="true" className="text-4xl">npm</span>
               <span className="text-base font-normal tracking-tight">NPM</span>
             </div>
           </div>
@@ -261,7 +261,7 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-20">
             <div id="output">
               <h2 className="text-3xl md:text-4xl font-mono font-normal tracking-tight mb-10">
-                Usage.
+                CLI usage guide.
               </h2>
 
               <div className="space-y-12">
@@ -315,12 +315,12 @@ export default function Home() {
             <div>
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-2xl font-mono font-normal tracking-tight">
-                  Generated Output
+                  Generated starter output
                 </h2>
                 <span className="text-sm text-[#666] font-mono">Next.js App Router</span>
               </div>
 
-              <OutputTabs />
+              <LazyOutputTabs />
             </div>
           </div>
         </div>
@@ -330,8 +330,8 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12">
           <div>
             <h3 className="text-xl font-mono font-normal tracking-tight mb-6 flex items-center gap-2">
-              <Icon icon="solar:code-circle-linear" className="text-2xl text-[#ff6b00]" />
-              Local Development
+              <span aria-hidden="true" className="text-[#ff6b00] text-2xl">&lt;/&gt;</span>
+              Local CLI development
             </h3>
             <p className="text-base text-[#666] mb-4">
               Run the CLI locally from the repository with:
@@ -343,8 +343,8 @@ export default function Home() {
           </div>
           <div>
             <h3 className="text-xl font-mono font-normal tracking-tight mb-6 flex items-center gap-2">
-              <Icon icon="solar:box-linear" className="text-2xl text-[#ff6b00]" />
-              Publish Checklist
+              <span aria-hidden="true" className="text-[#ff6b00] text-2xl">□</span>
+              npm publish checklist
             </h3>
             <p className="text-base text-[#666] mb-4">
               Before publishing the package to npm, ensure you run:
@@ -364,7 +364,7 @@ export default function Home() {
               Community
             </p>
             <h2 className="text-3xl md:text-4xl font-mono font-normal tracking-tight">
-              Highlighted Contributors.
+              CLI project contributors.
             </h2>
             <p className="text-base md:text-lg text-[#666] max-w-2xl">
               The project is built and maintained by contributors driving CLI ergonomics,
@@ -391,10 +391,12 @@ export default function Home() {
                     <p className="text-sm text-[#666] font-mono">@Abhiraj35</p>
                   </div>
                 </div>
-                <Icon
-                  icon="solar:arrow-right-up-linear"
+                <span
+                  aria-hidden="true"
                   className="text-xl text-[#666] group-hover:text-[#e8e8e8] transition-colors"
-                />
+                >
+                  ↗
+                </span>
               </div>
               <p className="mt-4 text-sm text-[#666] leading-relaxed">
                 Contributor focused on project direction, developer experience, and
@@ -420,10 +422,12 @@ export default function Home() {
                     <p className="text-sm text-[#666] font-mono">@Shubham-1068</p>
                   </div>
                 </div>
-                <Icon
-                  icon="solar:arrow-right-up-linear"
+                <span
+                  aria-hidden="true"
                   className="text-xl text-[#666] group-hover:text-[#e8e8e8] transition-colors"
-                />
+                >
+                  ↗
+                </span>
               </div>
               <p className="mt-4 text-sm text-[#666] leading-relaxed">
                 Maintainer focused on CLI reliability, npm distribution, and developer

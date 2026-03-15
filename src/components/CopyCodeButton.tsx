@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Icon } from "@iconify/react";
 
 interface CopyCodeButtonProps {
   text: string;
@@ -25,9 +24,9 @@ export default function CopyCodeButton({ text, className = "absolute top-3 right
       title="Copy code"
     >
       {copied ? (
-        <Icon icon="solar:check-circle-linear" className="text-green-500 text-lg" />
+        <span aria-hidden="true" className="text-green-500 text-lg">✓</span>
       ) : (
-        <Icon icon="solar:copy-linear" className="text-lg" />
+        <span aria-hidden="true" className="text-lg">⧉</span>
       )}
     </button>
   );

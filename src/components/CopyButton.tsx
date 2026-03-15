@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Icon } from "@iconify/react";
 
 interface CopyButtonProps {
   text: string;
@@ -14,19 +13,11 @@ export default function CopyButton({ text, className = "", iconClassName = "" }:
 
   const handleCopy = async () => {
     try {
-      if (navigator.clipboard && window.isSecureContext) {
-        await navigator.clipboard.writeText(text);
-      } else {
-        const textarea = document.createElement("textarea");
-        textarea.value = text;
-        textarea.setAttribute("readonly", "");
-        textarea.style.position = "absolute";
-        textarea.style.left = "-9999px";
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand("copy");
-        textarea.remove();
+      if (!navigator.clipboard || !window.isSecureContext) {
+        throw new Error("Clipboard API unavailable");
       }
+
+      await navigator.clipboard.writeText(text);
 
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
@@ -42,10 +33,12 @@ export default function CopyButton({ text, className = "", iconClassName = "" }:
       onClick={handleCopy}
       className={className}
     >
-      <Icon
-        icon={copied ? "solar:check-circle-linear" : "solar:copy-linear"}
+      <span
+        aria-hidden="true"
         className={`${iconClassName} ${copied ? "text-[#27c93f]" : ""}`}
-      />
+      >
+        {copied ? "✓" : "⧉"}
+      </span>
     </button>
   );
 }

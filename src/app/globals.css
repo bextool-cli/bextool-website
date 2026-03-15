@@ -19,6 +19,8 @@
 }
 
 html {
+  margin: 0;
+  padding: 0;
   scroll-behavior: smooth;
 }
 
@@ -59,6 +61,59 @@ body > * {
   background-color: var(--accent);
   vertical-align: middle;
   animation: blink 1s step-end infinite;
+}
+
+.terminal-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(125, 131, 141, 0.55) transparent;
+  scrollbar-gutter: stable;
+}
+
+.terminal-scroll::-webkit-scrollbar {
+  width: 10px;
+}
+
+.terminal-scroll::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 8px 0;
+}
+
+.terminal-scroll::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  background-color: rgba(125, 131, 141, 0.55);
+  min-height: 48px;
+}
+
+.terminal-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(157, 151, 143, 0.7);
+}
+
+.output-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(125, 131, 141, 0.55) transparent;
+  scrollbar-gutter: stable;
+}
+
+.output-scroll::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.output-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.output-scroll::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  background-color: rgba(125, 131, 141, 0.55);
+}
+
+.output-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(157, 151, 143, 0.7);
 }
 
 @keyframes blink {

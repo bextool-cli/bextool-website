@@ -37,6 +37,14 @@ export default function TerminalAnimation() {
   const containerRef = useRef<HTMLDivElement>(null);
   const initializedRef = useRef(false);
 
+  const scrollToBottom = () => {
+    if (!containerRef.current) return;
+    containerRef.current.scrollTo({
+      top: containerRef.current.scrollHeight,
+      behavior: "smooth",
+    });
+  };
+
   useEffect(() => {
     async function runTerminal() {
       if (!containerRef.current) return;
@@ -47,9 +55,11 @@ export default function TerminalAnimation() {
         const line = terminalScript[i];
         const lineDiv = document.createElement("div");
         terminalContainer.appendChild(lineDiv);
+        scrollToBottom();
 
         if (line.type === "newline") {
           lineDiv.innerHTML = "<br>";
+          scrollToBottom();
           continue;
         }
 
@@ -71,6 +81,7 @@ export default function TerminalAnimation() {
 
           for (const char of line.input || "") {
             inputSpan.textContent += char;
+            scrollToBottom();
             await sleep(50);
           }
           cursor.remove();
@@ -107,7 +118,7 @@ export default function TerminalAnimation() {
 
   return (
     <div
-      className="p-6 font-mono text-sm sm:text-base text-[#e8e8e8] leading-loose min-h-[400px]"
+      className="terminal-scroll px-6 pt-6 pb-12 font-mono text-sm sm:text-base text-[#e8e8e8] leading-loose h-100 overflow-y-auto"
       ref={containerRef}
     />
   );

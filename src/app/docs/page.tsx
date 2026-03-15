@@ -4,9 +4,9 @@ import { Icon } from "@iconify/react";
 import CopyCodeButton from "@/components/CopyCodeButton";
 
 export const metadata: Metadata = {
-  title: "Docs — Multi-Project CLI Documentation",
+  title: "Project Scaffolding CLI Docs",
   description:
-    "Official bextool documentation: installation, interactive flow, CLI commands, supported starters, and extension guide.",
+    "Official bextool project scaffolding CLI documentation: installation, usage flow, commands, starter templates, Search Console checklist, and extension guide.",
   keywords: [
     "bextool docs",
     "CLI documentation",
@@ -17,9 +17,9 @@ export const metadata: Metadata = {
     canonical: "/docs",
   },
   openGraph: {
-    title: "bextool Docs — Multi-Project CLI Documentation",
+    title: "bextool Docs — Project Scaffolding CLI Documentation",
     description:
-      "Learn installation, interactive flow, commands, supported starters, and advanced extension patterns for bextool.",
+      "Learn installation, interactive flow, commands, starter templates, Search Console setup, and extension patterns for bextool.",
     url: "/docs",
     images: [
       {
@@ -32,9 +32,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "bextool Docs — Multi-Project CLI Documentation",
+    title: "bextool Docs — Project Scaffolding CLI Documentation",
     description:
-      "Official bextool docs for setup, usage, and advanced template extension.",
+      "Official bextool docs for setup, usage, search visibility, and advanced template extension.",
     images: ["/logo.png"],
   },
 };
@@ -158,6 +158,11 @@ export default function Docs() {
               </p>
               <ul className="flex flex-col gap-2 border-l border-[#2a2a2a] pl-3 ml-2">
                 <li>
+                  <a href="#search-console-checklist" className="docs-link block text-[#888] hover:text-[#e8e8e8] transition-colors py-1">
+                    Search Console Checklist
+                  </a>
+                </li>
+                <li>
                   <a href="https://github.com/bextool-cli/bextool" target="_blank" rel="noreferrer" className="text-[#888] hover:text-[#e8e8e8] transition-colors py-1 flex items-center gap-2">
                     GitHub <Icon icon="solar:arrow-right-up-linear" />
                   </a>
@@ -171,10 +176,10 @@ export default function Docs() {
         <article className="min-w-0 prose-invert max-w-none text-[#a3a3a3] pb-24">
           <section id="quick-start" className="mb-20 pt-4">
             <h1 className="text-3xl md:text-5xl font-mono font-bold tracking-tight text-[#e8e8e8] mb-6">
-              bextool.
+              bextool project scaffolding CLI docs.
             </h1>
             <p className="text-lg md:text-xl leading-relaxed max-w-3xl mb-8">
-              <strong className="text-[#e8e8e8] font-normal">bextool</strong> is an open-source, multi-project CLI that generates production-ready starter applications from a single, beautiful interactive flow.
+              <strong className="text-[#e8e8e8] font-normal">bextool</strong> is an open-source project scaffolding CLI and app generator that creates production-ready starter applications from a single interactive flow.
             </p>
             <p className="leading-relaxed max-w-3xl mb-8">
               Setting up a new project often means writing boilerplate code, configuring tedious build tooling, and structuring files from scratch before actually starting your business logic. bextool solves this by providing a comprehensive, registry-driven tool that scaffolds Frontend apps, Backend servers, Full-Stack frameworks, Mobile apps, Browser extensions, and much more.
@@ -228,7 +233,7 @@ export default function Docs() {
 
           <section id="interactive-flow" className="mb-20 scroll-mt-24">
             <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-[#e8e8e8] mb-6">
-              Interactive Flow
+              Interactive CLI scaffolding flow
             </h2>
             <p className="leading-relaxed mb-8">
               Bextool offers a powerful, multi-step interactive wizard powered by <code className="bg-[#111] text-[#e8e8e8] px-1.5 py-0.5 rounded border border-[#2a2a2a]">@clack/prompts</code>. Instead of remembering hundreds of flags, simply run the command and the tool will guide you.
@@ -249,7 +254,7 @@ export default function Docs() {
 
           <section id="cli-commands" className="mb-20 scroll-mt-24">
             <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-[#e8e8e8] mb-6">
-              CLI Commands
+              CLI commands for starter generation
             </h2>
             <p className="leading-relaxed mb-6">
               It usually only takes two commands to get an entire application up and running locally.
@@ -282,7 +287,7 @@ export default function Docs() {
 
           <section id="supported-frameworks" className="mb-20 scroll-mt-24">
             <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-[#e8e8e8] mb-6">
-              Supported Starters Registry
+              Supported starter templates registry
             </h2>
             <p className="leading-relaxed mb-6">
               Bextool curates a massive registry of 15+ community-maintained scaffolding templates. Every template is production ready with necessary `.gitignore` files, linters usually pre-configured, and clean start architecture.
@@ -365,6 +370,42 @@ export default function Docs() {
             <p className="mt-8 text-sm italic">
               Once you do this, running `npm test` locally within the repository will automatically generate syntax checks and smoke integrations for your brand new framework setup!
             </p>
+          </section>
+
+          <hr className="border-[#1a1a1a] mb-16" />
+
+          <section id="search-console-checklist" className="mb-20 scroll-mt-24">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-[#e8e8e8] mb-6">
+              Google Search Console setup checklist
+            </h2>
+            <p className="leading-relaxed mb-6">
+              Use this checklist after deployment to improve crawl coverage and indexing signals for search engines.
+            </p>
+            <div className="bg-[#141414] border border-[#2a2a2a] rounded-xl p-6">
+              <ol className="list-decimal list-outside ml-5 space-y-4">
+                <li>
+                  <strong className="text-[#e8e8e8] font-medium">Verify your domain property:</strong> Add and verify your production domain in Google Search Console.
+                </li>
+                <li>
+                  <strong className="text-[#e8e8e8] font-medium">Set canonical host and HTTPS:</strong> Ensure one preferred domain version is indexed and HTTPS is enforced.
+                </li>
+                <li>
+                  <strong className="text-[#e8e8e8] font-medium">Submit sitemap:</strong> Submit <code className="text-[#ff6b00]">/sitemap.xml</code> in Search Console and confirm discovered URLs include home, docs, and policy pages.
+                </li>
+                <li>
+                  <strong className="text-[#e8e8e8] font-medium">Test robots access:</strong> Confirm <code className="text-[#ff6b00]">/robots.txt</code> is reachable and does not block critical content.
+                </li>
+                <li>
+                  <strong className="text-[#e8e8e8] font-medium">Request indexing for key pages:</strong> Inspect and request indexing for <code className="text-[#ff6b00]">/</code>, <code className="text-[#ff6b00]">/docs</code>, and your top trust pages.
+                </li>
+                <li>
+                  <strong className="text-[#e8e8e8] font-medium">Track performance queries weekly:</strong> Monitor clicks, impressions, and average position for target terms like “project scaffolding CLI” and “starter app generator”.
+                </li>
+                <li>
+                  <strong className="text-[#e8e8e8] font-medium">Fix coverage and enhancement issues:</strong> Resolve page indexing, structured data, and mobile usability issues as they appear.
+                </li>
+              </ol>
+            </div>
           </section>
 
         </article>
