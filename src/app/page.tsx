@@ -4,7 +4,7 @@ import LazyTerminalAnimation from "@/components/LazyTerminalAnimation";
 import LazyOutputTabs from "@/components/LazyOutputTabs";
 
 export const metadata: Metadata = {
-  title: "Project Scaffolding CLI for Modern Starter Apps",
+  title: "Bextool - Multi-Project Scaffolding CLI",
   description:
     "bextool is an open-source project scaffolding CLI and app generator to create production-ready starter apps for frontend, backend, full-stack, mobile, and browser extensions.",
   keywords: [
@@ -70,49 +70,73 @@ export default function Home() {
       />
       <section
         id="home"
-        className="min-h-[90vh] flex items-center py-20 lg:py-0 relative overflow-hidden"
+        className="relative overflow-hidden border-b border-[#1a1a1a] bg-[#0d0d0d]"
       >
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f1f1f_1px,transparent_1px),linear-gradient(to_bottom,#1f1f1f_1px,transparent_1px)] bg-size-[4rem_4rem] mask-[radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20 pointer-events-none"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(201,122,69,0.16)_0,transparent_55%),radial-gradient(circle_at_bottom,rgba(37,43,52,0.9)_0,#0d0d0d_70%)] opacity-30" />
+        <div className="pointer-events-none absolute inset-y-0 left-1/2 w-[1100px] -translate-x-1/2 border-x border-[#2b313a]/60" />
+        <div className="pointer-events-none absolute bottom-28 left-1/2 h-[420px] w-[1100px] -translate-x-1/2 rounded-[32px] border border-[#2b313a]/40" />
 
-        <div className="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-16 items-center relative z-10">
-          <div className="flex flex-col items-start max-w-2xl">
-            <span className="inline-flex items-center gap-2 px-3 py-1 text-xs font-mono text-[#666] border border-[#2a2a2a] rounded-full mb-8 bg-[#141414]">
-              <span aria-hidden="true" className="text-sm">□</span>
-              CLI TOOL · npm package
+        <div className="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-16 md:pt-28 md:pb-20 lg:pt-32 lg:pb-28 flex flex-col items-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1 text-[11px] md:text-xs font-mono text-[#9c978f] border border-[#2b313a] rounded-full mb-8 bg-[#101215]/90 backdrop-blur-sm">
+            <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#1b2026] text-[10px] text-[#c97a45]">
+              NOW
             </span>
-            <h1 className="text-5xl md:text-7xl font-mono font-normal tracking-tight leading-[1.1] text-[#e8e8e8]">
-              Project scaffolding CLI <br className="hidden md:block" />
-              for modern starter apps <br className="hidden md:block" />
+            <span className="hidden sm:inline">accepting new CLI projects</span>
+            <span className="sm:hidden">developer CLI</span>
+            <span className="h-1 w-1 rounded-full bg-[#2b313a]" aria-hidden="true" />
+            <span>npm package · open source</span>
+          </div>
+
+          <div className="text-center max-w-3xl mx-auto">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-mono font-normal tracking-tight leading-[1.05] text-[#ece9e4]">
+              Project scaffolding CLI
+              <br className="hidden md:block" />
+              for modern starter apps
+              <br className="hidden md:block" />
               in seconds.
             </h1>
-            <p className="text-lg md:text-xl text-[#666] mt-8 leading-relaxed max-w-xl">
+            <p className="mt-6 md:mt-7 text-base md:text-lg lg:text-xl text-[#9c978f] leading-relaxed">
               bextool is an open-source app generator CLI that scaffolds production-ready
               starter apps from one interactive flow for frontend, backend, full-stack,
               mobile, browser extensions, and more.
             </p>
+          </div>
 
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mt-10 w-full">
-              <div className="group flex w-full sm:w-auto items-center gap-3 bg-[#111] border border-[#333] hover:border-[#666] transition-all px-5 py-3.5 rounded text-[#ff6b00] font-mono text-sm sm:text-base relative overflow-hidden md:whitespace-nowrap">
-                <span className="text-[#666] select-none">$</span>
-                <span className="tracking-tight">npm install -g bextool</span>
-                <CopyButton
-                  text="npm install -g bextool"
-                  className="text-base text-[#666] group-hover:text-[#e8e8e8] transition-colors flex items-center"
-                />
-              </div>
+          <div className="mt-10 md:mt-12 flex justify-center">
+            <div className="group flex w-full sm:w-auto items-center gap-3 rounded-full border border-[#2b313a] bg-[#101215] px-5 py-3.5 text-sm md:text-base font-mono text-[#c97a45] hover:border-[#a96539] transition-colors">
+              <span className="text-[#7d838d] select-none">$</span>
+              <span className="truncate">npm install -g bextool</span>
+              <CopyButton
+                text="npm install -g bextool"
+                className="ml-1 text-base text-[#7d838d] group-hover:text-[#ece9e4] transition-colors flex items-center"
+              />
             </div>
           </div>
 
-          <div className="w-full relative group">
-            <div className="absolute -inset-1 bg-linear-to-r from-[#ff6b00]/20 to-transparent blur-2xl opacity-50 group-hover:opacity-100 transition duration-1000"></div>
-            <div className="bg-[#111] border border-[#333] rounded-xl overflow-hidden shadow-2xl relative">
-              <div className="bg-[#1a1a1a] border-b border-[#333] px-4 py-3 flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
-                <div className="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
-                <div className="w-3 h-3 rounded-full bg-[#27c93f]"></div>
-                <div className="ml-auto text-xs font-mono text-[#666]">bash</div>
+          <div className="mt-14 md:mt-16 w-full max-w-5xl">
+            <div className="relative group">
+              <div className="absolute inset-0 -inset-x-6 md:-inset-x-10 top-4 bg-[radial-gradient(circle_at_top,rgba(201,122,69,0.3)_0,transparent_55%),radial-gradient(circle_at_bottom,rgba(35,40,49,0.9)_0,transparent_50%)] blur-3xl opacity-80 group-hover:opacity-100 transition-opacity duration-700" />
+
+              <div className="relative overflow-hidden rounded-2xl border border-[#2b313a] bg-[#050608]/95 backdrop-blur-sm shadow-2xl shadow-black/60">
+                <div className="flex items-center gap-2 border-b border-[#2b313a] bg-[#050608]/90 px-4 py-3">
+                  <div className="flex items-center gap-1.5">
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f56]" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#ffbd2e]" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#27c93f]" />
+                  </div>
+                  <span className="ml-3 text-[11px] font-mono uppercase tracking-[0.18em] text-[#7d838d]">
+                    bextool · terminal
+                  </span>
+                  <span className="ml-auto flex items-center gap-2 text-[11px] font-mono text-[#7d838d]">
+                    <span className="inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    bash
+                  </span>
+                </div>
+
+                <div className="relative">
+                  <LazyTerminalAnimation />
+                </div>
               </div>
-              <LazyTerminalAnimation />
             </div>
           </div>
         </div>
@@ -227,7 +251,7 @@ export default function Home() {
       </section>
 
       <section className="py-24 border-t border-[#1a1a1a] bg-[#0d0d0d] overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 text-center">
+        <div className="max-w-6xl mx-auto px-6 text-center">
           <p className="text-sm font-mono text-[#666] uppercase tracking-widest mb-10">
             Universal Template Ecosystem
           </p>
@@ -239,18 +263,6 @@ export default function Home() {
             <div className="flex flex-col items-center gap-3 hover:opacity-100 transition-opacity">
               <span aria-hidden="true" className="text-4xl">▲</span>
               <span className="text-base font-normal tracking-tight">Next.js</span>
-            </div>
-            <div className="flex flex-col items-center gap-3 hover:opacity-100 transition-opacity">
-              <span aria-hidden="true" className="text-4xl">⬢</span>
-              <span className="text-base font-normal tracking-tight">Node.js</span>
-            </div>
-            <div className="flex flex-col items-center gap-3 hover:opacity-100 transition-opacity">
-              <span aria-hidden="true" className="text-4xl">🐳</span>
-              <span className="text-base font-normal tracking-tight">Docker</span>
-            </div>
-            <div className="flex flex-col items-center gap-3 hover:opacity-100 transition-opacity">
-              <span aria-hidden="true" className="text-4xl">npm</span>
-              <span className="text-base font-normal tracking-tight">NPM</span>
             </div>
           </div>
         </div>
@@ -327,7 +339,7 @@ export default function Home() {
       </section>
 
       <section className="py-24 border-t border-[#1a1a1a] bg-[#111]">
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12">
+        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12">
           <div>
             <h3 className="text-xl font-mono font-normal tracking-tight mb-6 flex items-center gap-2">
               <span aria-hidden="true" className="text-[#ff6b00] text-2xl">&lt;/&gt;</span>
@@ -358,7 +370,7 @@ export default function Home() {
       </section>
 
       <section id="contributors" className="py-24 border-t border-[#1a1a1a] bg-[#0d0d0d]">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-6">
           <div className="mb-10 flex flex-col gap-3">
             <p className="text-sm font-mono text-[#666] uppercase tracking-widest">
               Community
