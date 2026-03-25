@@ -1,19 +1,20 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { IBM_Plex_Mono, Instrument_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://bextool.tech";
 
-const inter = Inter({
-  variable: "--font-inter",
+const instrumentSans = Instrument_Sans({
+  variable: "--font-instrument-sans",
   subsets: ["latin"],
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
+const ibmPlexMono = IBM_Plex_Mono({
+  variable: "--font-ibm-plex-mono",
   subsets: ["latin"],
+  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
@@ -112,7 +113,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} selection:bg-[#ff6b00] selection:text-[#0d0d0d] font-light`}
+        className={`${instrumentSans.variable} ${ibmPlexMono.variable} selection:bg-[#ff6b00] selection:text-[#0d0d0d] font-light`}
       >
         <a
           href="#main-content"

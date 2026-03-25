@@ -3,6 +3,111 @@ import CopyButton from "@/components/CopyButton";
 import LazyTerminalAnimation from "@/components/LazyTerminalAnimation";
 import LazyOutputTabs from "@/components/LazyOutputTabs";
 
+type NpmRegistryResponse = {
+  "dist-tags"?: {
+    latest?: string;
+  };
+};
+
+type NpmDownloadsResponse = {
+  downloads?: number;
+  start?: string;
+  end?: string;
+};
+
+type NpmDownloadsRangePoint = {
+  day: string;
+  downloads: number;
+};
+
+type NpmDownloadsRangeResponse = {
+  start?: string;
+  end?: string;
+  downloads?: NpmDownloadsRangePoint[];
+};
+
+type NpmStats = {
+  latestVersion: string | null;
+  weeklyDownloads: number | null;
+  monthlyDownloads: number | null;
+  weeklyStart: string | null;
+  weeklyEnd: string | null;
+  monthlyStart: string | null;
+  monthlyEnd: string | null;
+  monthlyTrend: NpmDownloadsRangePoint[];
+};
+
+const npmNumberFormatter = new Intl.NumberFormat("en-US");
+async function getNpmStats(): Promise<NpmStats> {
+  const revalidate = 3600;
+
+  const [
+    registryResult,
+    weeklyDownloadsResult,
+    monthlyDownloadsResult,
+    monthlyTrendResult,
+  ] =
+    await Promise.allSettled([
+      fetch("https://registry.npmjs.org/bextool", {
+        next: { revalidate },
+      }),
+      fetch("https://api.npmjs.org/downloads/point/last-week/bextool", {
+        next: { revalidate },
+      }),
+      fetch("https://api.npmjs.org/downloads/point/last-month/bextool", {
+        next: { revalidate },
+      }),
+      fetch("https://api.npmjs.org/downloads/range/last-month/bextool", {
+        next: { revalidate },
+      }),
+    ]);
+
+  const latestVersion =
+    registryResult.status === "fulfilled" && registryResult.value.ok
+      ? ((await registryResult.value.json()) as NpmRegistryResponse)["dist-tags"]?.latest ?? null
+      : null;
+
+  const weeklyDownloadsData =
+    weeklyDownloadsResult.status === "fulfilled" && weeklyDownloadsResult.value.ok
+      ? ((await weeklyDownloadsResult.value.json()) as NpmDownloadsResponse)
+      : null;
+
+  const weeklyDownloads =
+    weeklyDownloadsData?.downloads ?? null;
+
+  const monthlyDownloadsData =
+    monthlyDownloadsResult.status === "fulfilled" && monthlyDownloadsResult.value.ok
+      ? ((await monthlyDownloadsResult.value.json()) as NpmDownloadsResponse)
+      : null;
+
+  const monthlyDownloads =
+    monthlyDownloadsData?.downloads ?? null;
+
+  const monthlyTrendData =
+    monthlyTrendResult.status === "fulfilled" && monthlyTrendResult.value.ok
+      ? ((await monthlyTrendResult.value.json()) as NpmDownloadsRangeResponse)
+      : null;
+
+  return {
+    latestVersion,
+    weeklyDownloads,
+    monthlyDownloads,
+    weeklyStart: weeklyDownloadsData?.start ?? null,
+    weeklyEnd: weeklyDownloadsData?.end ?? null,
+    monthlyStart: monthlyTrendData?.start ?? monthlyDownloadsData?.start ?? null,
+    monthlyEnd: monthlyTrendData?.end ?? monthlyDownloadsData?.end ?? null,
+    monthlyTrend: monthlyTrendData?.downloads ?? [],
+  };
+}
+
+function formatStat(value: number | null, prefix = "") {
+  if (value === null) {
+    return "Unavailable";
+  }
+
+  return `${prefix}${npmNumberFormatter.format(value)}`;
+}
+
 export const metadata: Metadata = {
   title: "Project Scaffolding CLI for Modern Starter Apps",
   description:
@@ -40,8 +145,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
+export default async function Home() {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://bextool.dev";
+  const npmStats = await getNpmStats();
 
   const softwareApplicationJsonLd = {
     "@context": "https://schema.org",
@@ -70,17 +176,21 @@ export default function Home() {
       />
       <section
         id="home"
-        className="min-h-[90vh] flex items-center py-20 lg:py-0 relative overflow-hidden"
+        className="relative overflow-hidden bg-[#0d0d0d]"
       >
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f1f1f_1px,transparent_1px),linear-gradient(to_bottom,#1f1f1f_1px,transparent_1px)] bg-size-[4rem_4rem] mask-[radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20 pointer-events-none"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,107,0,0.14),transparent_42%),linear-gradient(90deg,rgba(255,107,0,0.05)_0%,rgba(255,107,0,0.02)_28%,transparent_58%)] pointer-events-none"></div>
 
-        <div className="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-16 items-center relative z-10">
+        <div className="max-w-7xl mx-auto px-6 py-16 md:py-20 lg:py-24 relative z-10">
+          <div className="grid lg:grid-cols-[minmax(0,1.05fr)_minmax(25rem,0.95fr)] gap-14 xl:gap-20 items-center">
           <div className="flex flex-col items-start max-w-2xl">
-            <span className="inline-flex items-center gap-2 px-3 py-1 text-xs font-mono text-[#666] border border-[#2a2a2a] rounded-full mb-8 bg-[#141414]">
-              <span aria-hidden="true" className="text-sm">□</span>
-              CLI TOOL · npm package
+<span className="mb-8 inline-flex items-center gap-2 rounded-full border border-[#2a2a2a] bg-[#141414] px-4 py-1.5 text-[11px] font-mono uppercase tracking-[0.18em] text-[#666]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#ff6b00]" aria-hidden="true"></span>
+              Open-source CLI
+              <span className="text-[#444]" aria-hidden="true">/</span>
+              npm package
             </span>
-            <h1 className="text-5xl md:text-7xl font-mono font-normal tracking-tight leading-[1.1] text-[#e8e8e8]">
+            <h1 className="text-5xl md:text-7xl font-mono font-normal tracking-tight leading-[1.02] text-[#e8e8e8]">
               Project scaffolding CLI <br className="hidden md:block" />
               for modern starter apps <br className="hidden md:block" />
               in seconds.
@@ -101,6 +211,45 @@ export default function Home() {
                 />
               </div>
             </div>
+
+            <div className="mt-8 grid w-full gap-4 sm:grid-cols-3">
+              <div className="relative overflow-hidden rounded-2xl border border-[#2a2a2a] bg-[linear-gradient(180deg,rgba(20,20,20,0.92),rgba(17,17,17,0.98))] px-4 py-4 shadow-[0_18px_40px_rgba(0,0,0,0.2)]">
+                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#ff6b00]/70 to-transparent"></div>
+                <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-[#666] mb-3">
+                  Latest Release
+                </p>
+                <p className="text-3xl font-mono tracking-tight text-[#e8e8e8]">
+                  {npmStats.latestVersion ?? "Unavailable"}
+                </p>
+                <p className="mt-2 text-xs text-[#666]">
+                  Current npm version
+                </p>
+              </div>
+              <div className="relative overflow-hidden rounded-2xl border border-[#2a2a2a] bg-[linear-gradient(180deg,rgba(20,20,20,0.92),rgba(17,17,17,0.98))] px-4 py-4 shadow-[0_18px_40px_rgba(0,0,0,0.2)]">
+                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#ff6b00]/70 to-transparent"></div>
+                <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-[#666] mb-3">
+                  Weekly Pull
+                </p>
+                <p className="text-3xl font-mono tracking-tight text-[#e8e8e8]">
+                  {formatStat(npmStats.weeklyDownloads)}
+                </p>
+                <p className="mt-2 text-xs text-[#666]">
+                  Last 7 days
+                </p>
+              </div>
+              <div className="relative overflow-hidden rounded-2xl border border-[#2a2a2a] bg-[linear-gradient(180deg,rgba(20,20,20,0.92),rgba(17,17,17,0.98))] px-4 py-4 shadow-[0_18px_40px_rgba(0,0,0,0.2)]">
+                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#ff6b00]/70 to-transparent"></div>
+                <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-[#666] mb-3">
+                  Monthly Pull
+                </p>
+                <p className="text-3xl font-mono tracking-tight text-[#e8e8e8]">
+                  {formatStat(npmStats.monthlyDownloads)}
+                </p>
+                <p className="mt-2 text-xs text-[#666]">
+                  Last 30 days
+                </p>
+              </div>
+            </div>
           </div>
 
           <div className="w-full relative group">
@@ -115,6 +264,9 @@ export default function Home() {
               <LazyTerminalAnimation />
             </div>
           </div>
+          </div>
+
+
         </div>
       </section>
 
