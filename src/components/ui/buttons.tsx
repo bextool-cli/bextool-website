@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 
 const buttons = () => {
-    const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const copyInstall = () => {
     navigator.clipboard.writeText('npm install -g bextool');
@@ -14,25 +14,25 @@ const buttons = () => {
     setTimeout(() => setCopied(false), 2000);
   };
   return (
-        <div
-          className="relative flex w-full max-w-xl flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-center sm:gap-4 pb-10"
-        >
-          <button
-            onClick={copyInstall}
-            className="flex w-full items-center justify-center gap-3 rounded-full bg-[#1a1a1a] px-5 sm:px-8 py-3.5 sm:py-4 font-medium text-white transition-all hover:-translate-y-0.5 hover:bg-black shadow-xl hover:shadow-2xl sm:w-auto cursor-pointer"
-          >
-            <Terminal className="w-5 h-5 text-gray-400" />
-            <span className="font-mono text-sm">npm install -g bextool</span>
-            <div className="w-px h-4 bg-gray-700 mx-1"></div>
-            {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4 text-gray-400 hover:text-white" />}
-          </button>
+    <div
+      className="relative flex w-full max-w-xl flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-center sm:gap-4 pb-10"
+    >
+      <button
+        onClick={copyInstall}
+        className="flex w-full items-center justify-center gap-3 rounded-full bg-[#1a1a1a] px-5 sm:px-8 py-3.5 sm:py-4 font-medium text-white transition-all hover:-translate-y-0.5 hover:bg-black shadow-xl hover:shadow-2xl sm:w-auto cursor-pointer"
+      >
+        <Terminal className="w-5 h-5 text-gray-400" />
+        <span className="font-mono text-sm">npm install -g bextool</span>
+        <div className="w-px h-4 bg-gray-700 mx-1"></div>
+        {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4 text-gray-400 hover:text-white" />}
+      </button>
 
-          <Link
-            href="/docs"
-            className="flex w-full items-center justify-center gap-2 rounded-full border border-gray-200 bg-white px-5 sm:px-8 py-3.5 sm:py-4 font-medium text-[#1a1a1a] transition-all hover:border-gray-300 hover:bg-gray-50 shadow-sm sm:w-auto"
-          >
-            View Documentation
-          </Link>
+      <Link
+        href="/docs"
+        className="flex w-full items-center justify-center gap-2 rounded-full border border-gray-200 bg-white px-5 sm:px-8 py-3.5 sm:py-4 font-medium text-[#1a1a1a] transition-all hover:border-gray-300 hover:bg-gray-50 shadow-sm sm:w-auto"
+      >
+        View Documentation
+      </Link>
 
           {/* Hand-drawn text arrow */}
           <div className="absolute -left-36 top-15 hidden md:flex flex-col items-end transform -rotate-12 drop-shadow-[0_0_15px_rgba(255,107,0,0.3)]">
