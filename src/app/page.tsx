@@ -1,7 +1,8 @@
 import { Metadata } from "next";
+import Image from "next/image";
 import CopyButton from "@/components/CopyButton";
-import LazyTerminalAnimation from "@/components/LazyTerminalAnimation";
 import LazyOutputTabs from "@/components/LazyOutputTabs";
+import Buttons from "@/components/ui/buttons";
 
 export const metadata: Metadata = {
   title: "Bextool - Multi-Project Scaffolding CLI",
@@ -103,26 +104,19 @@ export default function Home() {
           </div>
 
           <div className="mt-10 md:mt-12 flex justify-center">
-            <div className="group flex w-full sm:w-auto items-center gap-3 rounded-full border border-[#2b313a] bg-[#101215] px-5 py-3.5 text-sm md:text-base font-mono text-[#c97a45] hover:border-[#a96539] transition-colors">
-              <span className="text-[#7d838d] select-none">$</span>
-              <span className="truncate">npm install -g bextool</span>
-              <CopyButton
-                text="npm install -g bextool"
-                className="ml-1 text-base text-[#7d838d] group-hover:text-[#ece9e4] transition-colors flex items-center"
-              />
-            </div>
+            <Buttons />
           </div>
 
           <div className="mt-14 md:mt-16 w-full max-w-5xl">
             <div className="relative group">
               <div className="absolute inset-0 -inset-x-6 md:-inset-x-10 top-4 bg-[radial-gradient(circle_at_top,rgba(201,122,69,0.3)_0,transparent_55%),radial-gradient(circle_at_bottom,rgba(35,40,49,0.9)_0,transparent_50%)] blur-3xl opacity-80 group-hover:opacity-100 transition-opacity duration-700" />
 
-              <div className="relative overflow-hidden rounded-2xl border border-[#2b313a] bg-[#050608]/95 backdrop-blur-sm shadow-2xl shadow-black/60">
+              <div className="relative overflow-hidden rounded-2xl border border-[#2b313a] bg-[#050608]/95 backdrop-blur-md shadow-2xl shadow-black/80 ring-1 ring-white/10 ring-inset">
                 <div className="flex items-center gap-2 border-b border-[#2b313a] bg-[#050608]/90 px-4 py-3">
                   <div className="flex items-center gap-1.5">
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f56]" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#ffbd2e]" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#27c93f]" />
+                    <span className="h-3 w-3 rounded-full bg-[#ff5f56] shadow-[inset_0_1px_2px_rgba(255,255,255,0.2)]" />
+                    <span className="h-3 w-3 rounded-full bg-[#ffbd2e] shadow-[inset_0_1px_2px_rgba(255,255,255,0.2)]" />
+                    <span className="h-3 w-3 rounded-full bg-[#27c93f] shadow-[inset_0_1px_2px_rgba(255,255,255,0.2)]" />
                   </div>
                   <span className="ml-3 text-[11px] font-mono uppercase tracking-[0.18em] text-[#7d838d]">
                     bextool · terminal
@@ -133,8 +127,16 @@ export default function Home() {
                   </span>
                 </div>
 
-                <div className="relative">
-                  <LazyTerminalAnimation />
+                <div className="w-full bg-[#0d0d0d] p-0.5 sm:p-1 md:p-2 rounded-b-2xl">
+                  <Image
+                    src="/hero/demo.avif"
+                    alt="bextool terminal CLI interface"
+                    width={1600}
+                    height={900}
+                    className="w-full h-auto object-contain rounded-xl border border-[#1a1a1a]"
+                    priority
+                    unoptimized={true}
+                  />
                 </div>
               </div>
             </div>

@@ -1,8 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono, Caveat, Geist } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://bextool.tech";
 
@@ -13,6 +16,11 @@ const inter = Inter({
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
+  subsets: ["latin"],
+});
+
+const caveat = Caveat({
+  variable: "--font-caveat",
   subsets: ["latin"],
 });
 
@@ -110,9 +118,9 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en">
+    <html lang="en" className={cn("font-sans", geist.variable)}>
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} selection:bg-[#ff6b00] selection:text-[#0d0d0d] font-light`}
+        className={`${inter.variable} ${jetbrainsMono.variable} ${caveat.variable} selection:bg-[#ff6b00] selection:text-[#0d0d0d] font-light`}
       >
         <a
           href="#main-content"
