@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-instrument-sans);
-  --font-mono: var(--font-ibm-plex-mono);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
+  --font-caveat: var(--font-caveat);
 }
 
 :root {
@@ -164,4 +165,4 @@ body > * {
 }
 
 .shadow-2xl { box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35) !important; }
-.opacity-20 { opacity: 0.12 !important; }
+.opacity-subtle { opacity: 0.12 !important; }

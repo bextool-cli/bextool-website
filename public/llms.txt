@@ -3,8 +3,8 @@
 > Open-source multi-project scaffolding CLI for modern apps.
 
 ## Canonical
-- https://bextool.dev/
-- https://bextool.dev/docs
+- https://bextool.tech/
+- https://bextool.tech/docs
 
 ## Project Links
 - Repository: https://github.com/bextool-cli/bextool

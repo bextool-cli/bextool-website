@@ -1,115 +1,11 @@
 import { Metadata } from "next";
+import Image from "next/image";
 import CopyButton from "@/components/CopyButton";
-import LazyTerminalAnimation from "@/components/LazyTerminalAnimation";
 import LazyOutputTabs from "@/components/LazyOutputTabs";
-
-type NpmRegistryResponse = {
-  "dist-tags"?: {
-    latest?: string;
-  };
-};
-
-type NpmDownloadsResponse = {
-  downloads?: number;
-  start?: string;
-  end?: string;
-};
-
-type NpmDownloadsRangePoint = {
-  day: string;
-  downloads: number;
-};
-
-type NpmDownloadsRangeResponse = {
-  start?: string;
-  end?: string;
-  downloads?: NpmDownloadsRangePoint[];
-};
-
-type NpmStats = {
-  latestVersion: string | null;
-  weeklyDownloads: number | null;
-  monthlyDownloads: number | null;
-  weeklyStart: string | null;
-  weeklyEnd: string | null;
-  monthlyStart: string | null;
-  monthlyEnd: string | null;
-  monthlyTrend: NpmDownloadsRangePoint[];
-};
-
-const npmNumberFormatter = new Intl.NumberFormat("en-US");
-async function getNpmStats(): Promise<NpmStats> {
-  const revalidate = 3600;
-
-  const [
-    registryResult,
-    weeklyDownloadsResult,
-    monthlyDownloadsResult,
-    monthlyTrendResult,
-  ] =
-    await Promise.allSettled([
-      fetch("https://registry.npmjs.org/bextool", {
-        next: { revalidate },
-      }),
-      fetch("https://api.npmjs.org/downloads/point/last-week/bextool", {
-        next: { revalidate },
-      }),
-      fetch("https://api.npmjs.org/downloads/point/last-month/bextool", {
-        next: { revalidate },
-      }),
-      fetch("https://api.npmjs.org/downloads/range/last-month/bextool", {
-        next: { revalidate },
-      }),
-    ]);
-
-  const latestVersion =
-    registryResult.status === "fulfilled" && registryResult.value.ok
-      ? ((await registryResult.value.json()) as NpmRegistryResponse)["dist-tags"]?.latest ?? null
-      : null;
-
-  const weeklyDownloadsData =
-    weeklyDownloadsResult.status === "fulfilled" && weeklyDownloadsResult.value.ok
-      ? ((await weeklyDownloadsResult.value.json()) as NpmDownloadsResponse)
-      : null;
-
-  const weeklyDownloads =
-    weeklyDownloadsData?.downloads ?? null;
-
-  const monthlyDownloadsData =
-    monthlyDownloadsResult.status === "fulfilled" && monthlyDownloadsResult.value.ok
-      ? ((await monthlyDownloadsResult.value.json()) as NpmDownloadsResponse)
-      : null;
-
-  const monthlyDownloads =
-    monthlyDownloadsData?.downloads ?? null;
-
-  const monthlyTrendData =
-    monthlyTrendResult.status === "fulfilled" && monthlyTrendResult.value.ok
-      ? ((await monthlyTrendResult.value.json()) as NpmDownloadsRangeResponse)
-      : null;
-
-  return {
-    latestVersion,
-    weeklyDownloads,
-    monthlyDownloads,
-    weeklyStart: weeklyDownloadsData?.start ?? null,
-    weeklyEnd: weeklyDownloadsData?.end ?? null,
-    monthlyStart: monthlyTrendData?.start ?? monthlyDownloadsData?.start ?? null,
-    monthlyEnd: monthlyTrendData?.end ?? monthlyDownloadsData?.end ?? null,
-    monthlyTrend: monthlyTrendData?.downloads ?? [],
-  };
-}
-
-function formatStat(value: number | null, prefix = "") {
-  if (value === null) {
-    return "Unavailable";
-  }
-
-  return `${prefix}${npmNumberFormatter.format(value)}`;
-}
+import Buttons from "@/components/ui/buttons";
 
 export const metadata: Metadata = {
-  title: "Project Scaffolding CLI for Modern Starter Apps",
+  title: "Bextool - Multi-Project Scaffolding CLI",
   description:
     "bextool is an open-source project scaffolding CLI and app generator to create production-ready starter apps for frontend, backend, full-stack, mobile, and browser extensions.",
   keywords: [
@@ -145,9 +41,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Home() {
+export default function Home() {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://bextool.dev";
-  const npmStats = await getNpmStats();
 
   const softwareApplicationJsonLd = {
     "@context": "https://schema.org",
@@ -176,97 +71,76 @@ export default async function Home() {
       />
       <section
         id="home"
-        className="relative overflow-hidden bg-[#0d0d0d]"
+        className="relative overflow-hidden border-b border-[#1a1a1a] bg-[#0d0d0d]"
       >
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f1f1f_1px,transparent_1px),linear-gradient(to_bottom,#1f1f1f_1px,transparent_1px)] bg-size-[4rem_4rem] mask-[radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20 pointer-events-none"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,107,0,0.14),transparent_42%),linear-gradient(90deg,rgba(255,107,0,0.05)_0%,rgba(255,107,0,0.02)_28%,transparent_58%)] pointer-events-none"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(201,122,69,0.16)_0,transparent_55%),radial-gradient(circle_at_bottom,rgba(37,43,52,0.9)_0,#0d0d0d_70%)] opacity-30" />
+        <div className="pointer-events-none absolute inset-y-0 left-1/2 w-[1100px] -translate-x-1/2 border-x border-[#2b313a]/60" />
+        <div className="pointer-events-none absolute bottom-28 left-1/2 h-[420px] w-[1100px] -translate-x-1/2 rounded-[32px] border border-[#2b313a]/40" />
 
-        <div className="max-w-7xl mx-auto px-6 py-16 md:py-20 lg:py-24 relative z-10">
-          <div className="grid lg:grid-cols-[minmax(0,1.05fr)_minmax(25rem,0.95fr)] gap-14 xl:gap-20 items-center">
-          <div className="flex flex-col items-start max-w-2xl">
-<span className="mb-8 inline-flex items-center gap-2 rounded-full border border-[#2a2a2a] bg-[#141414] px-4 py-1.5 text-[11px] font-mono uppercase tracking-[0.18em] text-[#666]">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#ff6b00]" aria-hidden="true"></span>
-              Open-source CLI
-              <span className="text-[#444]" aria-hidden="true">/</span>
-              npm package
+        <div className="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-16 md:pt-28 md:pb-20 lg:pt-32 lg:pb-28 flex flex-col items-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1 text-[11px] md:text-xs font-mono text-[#9c978f] border border-[#2b313a] rounded-full mb-8 bg-[#101215]/90 backdrop-blur-sm">
+            <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#1b2026] text-[10px] text-[#c97a45]">
+              NOW
             </span>
-            <h1 className="text-5xl md:text-7xl font-mono font-normal tracking-tight leading-[1.02] text-[#e8e8e8]">
-              Project scaffolding CLI <br className="hidden md:block" />
-              for modern starter apps <br className="hidden md:block" />
+            <span className="hidden sm:inline">accepting new CLI projects</span>
+            <span className="sm:hidden">developer CLI</span>
+            <span className="h-1 w-1 rounded-full bg-[#2b313a]" aria-hidden="true" />
+            <span>npm package · open source</span>
+          </div>
+
+          <div className="text-center max-w-3xl mx-auto">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-mono font-normal tracking-tight leading-[1.05] text-[#ece9e4]">
+              Project scaffolding CLI
+              <br className="hidden md:block" />
+              for modern starter apps
+              <br className="hidden md:block" />
               in seconds.
             </h1>
-            <p className="text-lg md:text-xl text-[#666] mt-8 leading-relaxed max-w-xl">
+            <p className="mt-6 md:mt-7 text-base md:text-lg lg:text-xl text-[#9c978f] leading-relaxed">
               bextool is an open-source app generator CLI that scaffolds production-ready
               starter apps from one interactive flow for frontend, backend, full-stack,
               mobile, browser extensions, and more.
             </p>
+          </div>
 
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mt-10 w-full">
-              <div className="group flex w-full sm:w-auto items-center gap-3 bg-[#111] border border-[#333] hover:border-[#666] transition-all px-5 py-3.5 rounded text-[#ff6b00] font-mono text-sm sm:text-base relative overflow-hidden md:whitespace-nowrap">
-                <span className="text-[#666] select-none">$</span>
-                <span className="tracking-tight">npm install -g bextool</span>
-                <CopyButton
-                  text="npm install -g bextool"
-                  className="text-base text-[#666] group-hover:text-[#e8e8e8] transition-colors flex items-center"
-                />
-              </div>
-            </div>
+          <div className="mt-10 md:mt-12 flex justify-center">
+            <Buttons />
+          </div>
 
-            <div className="mt-8 grid w-full gap-4 sm:grid-cols-3">
-              <div className="relative overflow-hidden rounded-2xl border border-[#2a2a2a] bg-[linear-gradient(180deg,rgba(20,20,20,0.92),rgba(17,17,17,0.98))] px-4 py-4 shadow-[0_18px_40px_rgba(0,0,0,0.2)]">
-                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#ff6b00]/70 to-transparent"></div>
-                <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-[#666] mb-3">
-                  Latest Release
-                </p>
-                <p className="text-3xl font-mono tracking-tight text-[#e8e8e8]">
-                  {npmStats.latestVersion ?? "Unavailable"}
-                </p>
-                <p className="mt-2 text-xs text-[#666]">
-                  Current npm version
-                </p>
-              </div>
-              <div className="relative overflow-hidden rounded-2xl border border-[#2a2a2a] bg-[linear-gradient(180deg,rgba(20,20,20,0.92),rgba(17,17,17,0.98))] px-4 py-4 shadow-[0_18px_40px_rgba(0,0,0,0.2)]">
-                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#ff6b00]/70 to-transparent"></div>
-                <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-[#666] mb-3">
-                  Weekly Pull
-                </p>
-                <p className="text-3xl font-mono tracking-tight text-[#e8e8e8]">
-                  {formatStat(npmStats.weeklyDownloads)}
-                </p>
-                <p className="mt-2 text-xs text-[#666]">
-                  Last 7 days
-                </p>
-              </div>
-              <div className="relative overflow-hidden rounded-2xl border border-[#2a2a2a] bg-[linear-gradient(180deg,rgba(20,20,20,0.92),rgba(17,17,17,0.98))] px-4 py-4 shadow-[0_18px_40px_rgba(0,0,0,0.2)]">
-                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#ff6b00]/70 to-transparent"></div>
-                <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-[#666] mb-3">
-                  Monthly Pull
-                </p>
-                <p className="text-3xl font-mono tracking-tight text-[#e8e8e8]">
-                  {formatStat(npmStats.monthlyDownloads)}
-                </p>
-                <p className="mt-2 text-xs text-[#666]">
-                  Last 30 days
-                </p>
+          <div className="mt-14 md:mt-16 w-full max-w-5xl">
+            <div className="relative group">
+              <div className="absolute inset-0 -inset-x-6 md:-inset-x-10 top-4 bg-[radial-gradient(circle_at_top,rgba(201,122,69,0.3)_0,transparent_55%),radial-gradient(circle_at_bottom,rgba(35,40,49,0.9)_0,transparent_50%)] blur-3xl opacity-80 group-hover:opacity-100 transition-opacity duration-700" />
+
+              <div className="relative overflow-hidden rounded-2xl border border-[#2b313a] bg-[#050608]/95 backdrop-blur-md shadow-2xl shadow-black/80 ring-1 ring-white/10 ring-inset">
+                <div className="flex items-center gap-2 border-b border-[#2b313a] bg-[#050608]/90 px-4 py-3">
+                  <div className="flex items-center gap-1.5">
+                    <span className="h-3 w-3 rounded-full bg-[#ff5f56] shadow-[inset_0_1px_2px_rgba(255,255,255,0.2)]" />
+                    <span className="h-3 w-3 rounded-full bg-[#ffbd2e] shadow-[inset_0_1px_2px_rgba(255,255,255,0.2)]" />
+                    <span className="h-3 w-3 rounded-full bg-[#27c93f] shadow-[inset_0_1px_2px_rgba(255,255,255,0.2)]" />
+                  </div>
+                  <span className="ml-3 text-[11px] font-mono uppercase tracking-[0.18em] text-[#7d838d]">
+                    bextool · terminal
+                  </span>
+                  <span className="ml-auto flex items-center gap-2 text-[11px] font-mono text-[#7d838d]">
+                    <span className="inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    bash
+                  </span>
+                </div>
+
+                <div className="w-full bg-[#0d0d0d] p-0.5 sm:p-1 md:p-2 rounded-b-2xl">
+                  <Image
+                    src="/hero/demo.avif"
+                    alt="bextool terminal CLI interface"
+                    width={1600}
+                    height={900}
+                    className="w-full h-auto object-contain rounded-xl border border-[#1a1a1a]"
+                    priority
+                    unoptimized={true}
+                  />
+                </div>
               </div>
             </div>
           </div>
-
-          <div className="w-full relative group">
-            <div className="absolute -inset-1 bg-linear-to-r from-[#ff6b00]/20 to-transparent blur-2xl opacity-50 group-hover:opacity-100 transition duration-1000"></div>
-            <div className="bg-[#111] border border-[#333] rounded-xl overflow-hidden shadow-2xl relative">
-              <div className="bg-[#1a1a1a] border-b border-[#333] px-4 py-3 flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
-                <div className="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
-                <div className="w-3 h-3 rounded-full bg-[#27c93f]"></div>
-                <div className="ml-auto text-xs font-mono text-[#666]">bash</div>
-              </div>
-              <LazyTerminalAnimation />
-            </div>
-          </div>
-          </div>
-
-
         </div>
       </section>
 
@@ -379,7 +253,7 @@ export default async function Home() {
       </section>
 
       <section className="py-24 border-t border-[#1a1a1a] bg-[#0d0d0d] overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 text-center">
+        <div className="max-w-6xl mx-auto px-6 text-center">
           <p className="text-sm font-mono text-[#666] uppercase tracking-widest mb-10">
             Universal Template Ecosystem
           </p>
@@ -391,18 +265,6 @@ export default async function Home() {
             <div className="flex flex-col items-center gap-3 hover:opacity-100 transition-opacity">
               <span aria-hidden="true" className="text-4xl">▲</span>
               <span className="text-base font-normal tracking-tight">Next.js</span>
-            </div>
-            <div className="flex flex-col items-center gap-3 hover:opacity-100 transition-opacity">
-              <span aria-hidden="true" className="text-4xl">⬢</span>
-              <span className="text-base font-normal tracking-tight">Node.js</span>
-            </div>
-            <div className="flex flex-col items-center gap-3 hover:opacity-100 transition-opacity">
-              <span aria-hidden="true" className="text-4xl">🐳</span>
-              <span className="text-base font-normal tracking-tight">Docker</span>
-            </div>
-            <div className="flex flex-col items-center gap-3 hover:opacity-100 transition-opacity">
-              <span aria-hidden="true" className="text-4xl">npm</span>
-              <span className="text-base font-normal tracking-tight">NPM</span>
             </div>
           </div>
         </div>
@@ -479,7 +341,7 @@ export default async function Home() {
       </section>
 
       <section className="py-24 border-t border-[#1a1a1a] bg-[#111]">
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12">
+        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12">
           <div>
             <h3 className="text-xl font-mono font-normal tracking-tight mb-6 flex items-center gap-2">
               <span aria-hidden="true" className="text-[#ff6b00] text-2xl">&lt;/&gt;</span>
@@ -510,7 +372,7 @@ export default async function Home() {
       </section>
 
       <section id="contributors" className="py-24 border-t border-[#1a1a1a] bg-[#0d0d0d]">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-6">
           <div className="mb-10 flex flex-col gap-3">
             <p className="text-sm font-mono text-[#666] uppercase tracking-widest">
               Community
