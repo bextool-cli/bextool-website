@@ -3,6 +3,7 @@ import Image from "next/image";
 import CopyButton from "@/components/CopyButton";
 import LazyOutputTabs from "@/components/LazyOutputTabs";
 import Buttons from "@/components/ui/buttons";
+import { siteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Bextool - Multi-Project Scaffolding CLI",
@@ -42,8 +43,6 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://bextool.dev";
-
   const softwareApplicationJsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",

@@ -1,18 +1,18 @@
-"use client"
-import { useState } from 'react'
-import { Terminal, Copy, Check } from 'lucide-react';
-import Link from 'next/link';
+"use client";
 
+import { useState } from "react";
+import { Terminal, Copy, Check } from "lucide-react";
+import Link from "next/link";
 
-
-const buttons = () => {
+export default function Buttons() {
   const [copied, setCopied] = useState(false);
 
   const copyInstall = () => {
-    navigator.clipboard.writeText('npm install -g bextool');
+    navigator.clipboard.writeText("npm install -g bextool");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
+
   return (
     <div
       className="relative flex w-full max-w-xl flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-center sm:gap-4 pb-10"
@@ -42,7 +42,5 @@ const buttons = () => {
             <span className="font-caveat text-2xl font-bold bg-gradient-to-r from-[#ff6b00] to-[#e8a274] bg-clip-text text-transparent whitespace-nowrap shadow-black drop-shadow-sm select-none">Ready in 60 seconds</span>
           </div>
         </div>
-  )
+  );
 }
-
-export default buttons

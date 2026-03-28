@@ -4,10 +4,9 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { cn } from "@/lib/utils";
+import { siteUrl } from "@/lib/site";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://bextool.tech";
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 const inter = Inter({
   variable: "--font-inter",
