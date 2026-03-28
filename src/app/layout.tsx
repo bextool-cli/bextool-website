@@ -9,14 +9,15 @@ const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://bextool.tech";
 
-const inter = Inter({
-  variable: "--font-inter",
+const instrumentSans = Instrument_Sans({
+  variable: "--font-instrument-sans",
   subsets: ["latin"],
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
+const ibmPlexMono = IBM_Plex_Mono({
+  variable: "--font-ibm-plex-mono",
   subsets: ["latin"],
+  weight: ["400", "500"],
 });
 
 const caveat = Caveat({
