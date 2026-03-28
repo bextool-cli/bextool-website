@@ -4,111 +4,6 @@ import CopyButton from "@/components/CopyButton";
 import LazyOutputTabs from "@/components/LazyOutputTabs";
 import Buttons from "@/components/ui/buttons";
 
-type NpmRegistryResponse = {
-  "dist-tags"?: {
-    latest?: string;
-  };
-};
-
-type NpmDownloadsResponse = {
-  downloads?: number;
-  start?: string;
-  end?: string;
-};
-
-type NpmDownloadsRangePoint = {
-  day: string;
-  downloads: number;
-};
-
-type NpmDownloadsRangeResponse = {
-  start?: string;
-  end?: string;
-  downloads?: NpmDownloadsRangePoint[];
-};
-
-type NpmStats = {
-  latestVersion: string | null;
-  weeklyDownloads: number | null;
-  monthlyDownloads: number | null;
-  weeklyStart: string | null;
-  weeklyEnd: string | null;
-  monthlyStart: string | null;
-  monthlyEnd: string | null;
-  monthlyTrend: NpmDownloadsRangePoint[];
-};
-
-const npmNumberFormatter = new Intl.NumberFormat("en-US");
-async function getNpmStats(): Promise<NpmStats> {
-  const revalidate = 3600;
-
-  const [
-    registryResult,
-    weeklyDownloadsResult,
-    monthlyDownloadsResult,
-    monthlyTrendResult,
-  ] =
-    await Promise.allSettled([
-      fetch("https://registry.npmjs.org/bextool", {
-        next: { revalidate },
-      }),
-      fetch("https://api.npmjs.org/downloads/point/last-week/bextool", {
-        next: { revalidate },
-      }),
-      fetch("https://api.npmjs.org/downloads/point/last-month/bextool", {
-        next: { revalidate },
-      }),
-      fetch("https://api.npmjs.org/downloads/range/last-month/bextool", {
-        next: { revalidate },
-      }),
-    ]);
-
-  const latestVersion =
-    registryResult.status === "fulfilled" && registryResult.value.ok
-      ? ((await registryResult.value.json()) as NpmRegistryResponse)["dist-tags"]?.latest ?? null
-      : null;
-
-  const weeklyDownloadsData =
-    weeklyDownloadsResult.status === "fulfilled" && weeklyDownloadsResult.value.ok
-      ? ((await weeklyDownloadsResult.value.json()) as NpmDownloadsResponse)
-      : null;
-
-  const weeklyDownloads =
-    weeklyDownloadsData?.downloads ?? null;
-
-  const monthlyDownloadsData =
-    monthlyDownloadsResult.status === "fulfilled" && monthlyDownloadsResult.value.ok
-      ? ((await monthlyDownloadsResult.value.json()) as NpmDownloadsResponse)
-      : null;
-
-  const monthlyDownloads =
-    monthlyDownloadsData?.downloads ?? null;
-
-  const monthlyTrendData =
-    monthlyTrendResult.status === "fulfilled" && monthlyTrendResult.value.ok
-      ? ((await monthlyTrendResult.value.json()) as NpmDownloadsRangeResponse)
-      : null;
-
-  return {
-    latestVersion,
-    weeklyDownloads,
-    monthlyDownloads,
-    weeklyStart: weeklyDownloadsData?.start ?? null,
-    weeklyEnd: weeklyDownloadsData?.end ?? null,
-    monthlyStart: monthlyTrendData?.start ?? monthlyDownloadsData?.start ?? null,
-    monthlyEnd: monthlyTrendData?.end ?? monthlyDownloadsData?.end ?? null,
-    monthlyTrend: monthlyTrendData?.downloads ?? [],
-  };
-}
-
-function formatStat(value: number | null, prefix = "") {
-  if (value === null) {
-    return "Unavailable";
-  }
-
-  return `${prefix}${npmNumberFormatter.format(value)}`;
-}
-
 export const metadata: Metadata = {
   title: "Bextool - Multi-Project Scaffolding CLI",
   description:
@@ -146,9 +41,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Home() {
+export default function Home() {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://bextool.dev";
-  const npmStats = await getNpmStats();
 
   const softwareApplicationJsonLd = {
     "@context": "https://schema.org",
@@ -247,9 +141,6 @@ export default async function Home() {
               </div>
             </div>
           </div>
-          </div>
-
-
         </div>
       </section>
 
