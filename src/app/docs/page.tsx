@@ -6,7 +6,6 @@ import {
   cliCommandsContent,
   docsIntro,
   docsNavigation,
-  extendingCliContent,
   installationContent,
   interactiveFlowContent,
   supportedTemplatesContent,
@@ -288,34 +287,6 @@ export default function Docs() {
               </div>
             </div>
           </section>
-
-          <hr className="border-[#1a1a1a] mb-16" />
-
-          <section id="extending-the-cli" className="mb-20 scroll-mt-24">
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-[#e8e8e8] mb-6">
-              {extendingCliContent.title}
-            </h2>
-            <p className="leading-relaxed mb-6">
-              {renderTextWithInlineCode(extendingCliContent.body)}
-            </p>
-
-            <div className="bg-[#141414] border border-[#2a2a2a] rounded-xl p-6">
-              <h3 className="text-lg font-medium tracking-tight text-[#e8e8e8] mb-4">{extendingCliContent.stepsTitle}</h3>
-              <ol className="list-decimal list-outside ml-5 space-y-4">
-                {extendingCliContent.steps.map((step) => (
-                  <li key={step.title}>
-                    <strong className="text-[#e8e8e8] font-medium">{step.title}:</strong> {step.body}
-                  </li>
-                ))}
-              </ol>
-            </div>
-
-            <p className="mt-8 text-sm italic">
-              {renderTextWithInlineCode(extendingCliContent.note)}
-            </p>
-          </section>
-
-          <hr className="border-[#1a1a1a] mb-16" />
 
         </article>
       </div>

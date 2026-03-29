@@ -1,14 +1,16 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import Image from "next/image";
+
+import TransitionSection from "@/components/TransitionSection";
 import CopyButton from "@/components/CopyButton";
 import LazyOutputTabs from "@/components/LazyOutputTabs";
 import Buttons from "@/components/ui/buttons";
-import { siteUrl } from "@/lib/site";
+import { homeContent } from "@/content/home";
+import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Bextool - Multi-Project Scaffolding CLI",
-  description:
-    "bextool is an open-source project scaffolding CLI and app generator to create production-ready starter apps for frontend, backend, full-stack, mobile, and browser extensions.",
+  title: `${siteConfig.name} - Multi-Project Scaffolding CLI`,
+  description: siteConfig.description,
   keywords: [
     "bextool CLI",
     "scaffolding tool",
@@ -20,33 +22,95 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "bextool — Project Scaffolding CLI for Modern Starter Apps",
-    description:
-      "Create production-ready starter apps with one interactive CLI flow.",
+    title: `${siteConfig.name} — ${siteConfig.taglines.home}`,
+    description: "Create production-ready starter apps with one interactive CLI flow.",
     url: "/",
     images: [
       {
         url: "/logo.png",
         width: 512,
         height: 512,
-        alt: "bextool logo",
+        alt: `${siteConfig.name} logo`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "bextool — Project Scaffolding CLI for Modern Starter Apps",
-    description:
-      "Create production-ready starter apps with one interactive CLI flow.",
+    title: `${siteConfig.name} — ${siteConfig.taglines.home}`,
+    description: "Create production-ready starter apps with one interactive CLI flow.",
     images: ["/logo.png"],
   },
 };
+
+function FeatureCard({
+  title,
+  description,
+  variant,
+  items,
+}: (typeof homeContent.features.cards)[number]) {
+  return (
+    <article className="overflow-hidden rounded-xl border border-[#2a2a2a] bg-[#141414] p-7">
+      <h3 className="mb-2 text-2xl font-normal tracking-tight">{title}</h3>
+      <p className="mb-6 text-base leading-relaxed text-[#666]">{description}</p>
+
+      {variant === "metrics" ? (
+        <div className="space-y-3 rounded-lg border border-[#333] bg-[#111] p-4">
+          {items.map((item) => (
+            <div
+              key={item.label}
+              className="flex items-center justify-between rounded border border-[#2a2a2a] bg-[#141414] px-3 py-2"
+            >
+              <span className="text-sm text-[#666]">{item.label}</span>
+              <span className="font-mono text-sm text-[#e8e8e8]">{item.value}</span>
+            </div>
+          ))}
+        </div>
+      ) : null}
+
+      {variant === "templates" ? (
+        <div className="grid grid-cols-2 gap-3">
+          {items.map((item) => (
+            <div key={item.label} className="rounded border border-[#333] bg-[#111] p-4">
+              <p className="mb-2 text-sm text-[#666]">{item.label}</p>
+              <p className="font-mono text-sm text-[#e8e8e8]">{item.value}</p>
+            </div>
+          ))}
+        </div>
+      ) : null}
+
+      {variant === "code" ? (
+        <div className="rounded-lg border border-[#333] bg-[#111] p-4 font-mono text-sm leading-relaxed">
+          {items.map((item, index) => (
+            <p key={`${item.value}-${index}`} className={index === 1 ? "text-[#e8e8e8]" : "text-[#666]"}>
+              {item.value}
+            </p>
+          ))}
+        </div>
+      ) : null}
+
+      {variant === "checklist" ? (
+        <div className="rounded-lg border border-[#333] bg-[#111] p-5">
+          <ul className="space-y-3 text-sm">
+            {items.map((item) => (
+              <li key={item.value} className="flex items-center gap-2 text-[#e8e8e8]">
+                <span aria-hidden="true" className="text-[#ff6b00]">
+                  ✓
+                </span>
+                {item.value}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+    </article>
+  );
+}
 
 export default function Home() {
   const softwareApplicationJsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "bextool",
+    name: siteConfig.name,
     applicationCategory: "DeveloperApplication",
     operatingSystem: "macOS, Linux, Windows",
     softwareVersion: "latest",
@@ -55,12 +119,13 @@ export default function Home() {
       price: "0",
       priceCurrency: "USD",
     },
-    url: siteUrl,
-    downloadUrl: "https://www.npmjs.com/package/bextool",
-    codeRepository: "https://github.com/bextool-cli/bextool",
-    description:
-      "An open-source multi-project CLI for scaffolding modern starter apps.",
+    url: siteConfig.siteUrl,
+    downloadUrl: siteConfig.links.npm,
+    codeRepository: siteConfig.links.repository,
+    description: siteConfig.shortDescription,
   };
+
+  const LinkIcon = homeContent.contributors.cardIcon;
 
   return (
     <main id="main-content">
@@ -68,385 +133,217 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationJsonLd) }}
       />
-      <section
-        id="home"
-        className="relative overflow-hidden border-b border-[#1a1a1a] bg-[#0d0d0d]"
-      >
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(201,122,69,0.16)_0,transparent_55%),radial-gradient(circle_at_bottom,rgba(37,43,52,0.9)_0,#0d0d0d_70%)] opacity-30" />
-        <div className="pointer-events-none absolute inset-y-0 left-1/2 w-[1100px] -translate-x-1/2 border-x border-[#2b313a]/60" />
-        <div className="pointer-events-none absolute bottom-28 left-1/2 h-[420px] w-[1100px] -translate-x-1/2 rounded-[32px] border border-[#2b313a]/40" />
 
-        <div className="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-16 md:pt-28 md:pb-20 lg:pt-32 lg:pb-28 flex flex-col items-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 text-[11px] md:text-xs font-mono text-[#9c978f] border border-[#2b313a] rounded-full mb-8 bg-[#101215]/90 backdrop-blur-sm">
-            <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#1b2026] text-[10px] text-[#c97a45]">
-              NOW
-            </span>
-            <span className="hidden sm:inline">accepting new CLI projects</span>
-            <span className="sm:hidden">developer CLI</span>
-            <span className="h-1 w-1 rounded-full bg-[#2b313a]" aria-hidden="true" />
-            <span>npm package · open source</span>
-          </div>
+      <section id="home" className="relative overflow-hidden bg-[#0d0d0d]">
+        <div className="relative z-10 mx-auto max-w-6xl px-4 pb-18 pt-16 sm:px-6 md:pt-20 lg:pt-24">
+          <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
 
-          <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-mono font-normal tracking-tight leading-[1.05] text-[#ece9e4]">
-              Project scaffolding CLI
-              <br className="hidden md:block" />
-              for modern starter apps
-              <br className="hidden md:block" />
-              in seconds.
+            <h1 className="mt-8 lg:pt-28 text-3xl font-mono leading-[1.04] tracking-tight text-[#ece9e4] text-balance sm:text-5xl lg:text-7xl">
+              {homeContent.hero.title}
             </h1>
-            <p className="mt-6 md:mt-7 text-base md:text-lg lg:text-xl text-[#9c978f] leading-relaxed">
-              bextool is an open-source app generator CLI that scaffolds production-ready
-              starter apps from one interactive flow for frontend, backend, full-stack,
-              mobile, browser extensions, and more.
+            <p className="mt-6 max-w-3xl text-base leading-relaxed text-[#9c978f] sm:text-lg">
+              {homeContent.hero.description}
             </p>
+
+            <div className="mt-10 flex w-full justify-center">
+              <Buttons />
+            </div>
           </div>
 
-          <div className="mt-10 md:mt-12 flex justify-center">
-            <Buttons />
-          </div>
-
-          <div className="mt-14 md:mt-16 w-full max-w-5xl">
-            <div className="relative group">
-              <div className="absolute inset-0 -inset-x-6 md:-inset-x-10 top-4 bg-[radial-gradient(circle_at_top,rgba(201,122,69,0.3)_0,transparent_55%),radial-gradient(circle_at_bottom,rgba(35,40,49,0.9)_0,transparent_50%)] blur-3xl opacity-80 group-hover:opacity-100 transition-opacity duration-700" />
-
-              <div className="relative overflow-hidden rounded-2xl border border-[#2b313a] bg-[#050608]/95 backdrop-blur-md shadow-2xl shadow-black/80 ring-1 ring-white/10 ring-inset">
-                <div className="flex items-center gap-2 border-b border-[#2b313a] bg-[#050608]/90 px-4 py-3">
-                  <div className="flex items-center gap-1.5">
-                    <span className="h-3 w-3 rounded-full bg-[#ff5f56] shadow-[inset_0_1px_2px_rgba(255,255,255,0.2)]" />
-                    <span className="h-3 w-3 rounded-full bg-[#ffbd2e] shadow-[inset_0_1px_2px_rgba(255,255,255,0.2)]" />
-                    <span className="h-3 w-3 rounded-full bg-[#27c93f] shadow-[inset_0_1px_2px_rgba(255,255,255,0.2)]" />
-                  </div>
-                  <span className="ml-3 text-[11px] font-mono uppercase tracking-[0.18em] text-[#7d838d]">
-                    bextool · terminal
-                  </span>
-                  <span className="ml-auto flex items-center gap-2 text-[11px] font-mono text-[#7d838d]">
-                    <span className="inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    bash
-                  </span>
-                </div>
-
-                <div className="w-full bg-[#0d0d0d] p-0.5 sm:p-1 md:p-2 rounded-b-2xl">
-                  <Image
-                    src="/hero/demo.avif"
-                    alt="bextool terminal CLI interface"
-                    width={1600}
-                    height={900}
-                    className="w-full h-auto object-contain rounded-xl border border-[#1a1a1a]"
-                    priority
-                    unoptimized={true}
-                  />
-                </div>
-              </div>
+          <div className="mt-12 overflow-hidden rounded-2xl border border-[#2f3742] bg-[#07090d]/80 shadow-[0_35px_120px_rgba(0,0,0,.55)] backdrop-blur-sm">
+            <div className="flex items-center gap-2 border-b border-[#2f3742] bg-[#0f141a]/80 px-4 py-3">
+              <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f56]" />
+              <span className="h-2.5 w-2.5 rounded-full bg-[#ffbd2e]" />
+              <span className="h-2.5 w-2.5 rounded-full bg-[#27c93f]" />
+              <span className="ml-3 text-[11px] font-mono uppercase tracking-[0.18em] text-[#7d838d]">
+                {homeContent.hero.terminalLabel}
+              </span>
+              <span className="ml-auto text-[11px] font-mono text-[#7d838d]">bash</span>
+            </div>
+            <div className="bg-[#0b0f14] p-2 md:p-3">
+              <Image
+                src={homeContent.hero.image.src}
+                alt={homeContent.hero.image.alt}
+                width={1600}
+                height={900}
+                className="h-auto w-full rounded-lg border border-[#252d37] object-contain"
+                priority
+                unoptimized
+              />
             </div>
           </div>
         </div>
       </section>
 
-      <section id="features" className="py-32 border-t border-[#1a1a1a] bg-[#0d0d0d]">
-        <div className="max-w-7xl mx-auto px-6">
+      <section id="transition" className="bg-[#0d0d0d]">
+        <TransitionSection />
+      </section>
+
+      <section id="features" className="bg-[#0d0d0d] py-24">
+        <div className="mx-auto max-w-7xl px-6">
           <div className="mb-14">
-            <p className="text-sm font-mono text-[#666] uppercase tracking-widest mb-4">
-              Features
+            <p className="mb-4 text-sm font-mono uppercase tracking-widest text-[#666]">
+              {homeContent.features.eyebrow}
             </p>
-            <h2 className="text-3xl md:text-5xl font-mono font-normal tracking-tight leading-tight mb-4">
-              Scaffolding features for every stack.
+            <h2 className="text-3xl font-mono font-normal leading-tight tracking-tight md:text-5xl">
+              {homeContent.features.title}
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <article className="bg-[#141414] border border-[#2a2a2a] rounded-xl p-7 overflow-hidden">
-              <h3 className="text-2xl font-normal tracking-tight mb-2">Guided CLI Flow</h3>
-              <p className="text-base text-[#666] leading-relaxed mb-6">
-                A clean interactive app scaffolding flow that generates starter projects in minutes.
-              </p>
-              <div className="bg-[#111] border border-[#333] rounded-lg p-4 space-y-3">
-                <div className="flex items-center justify-between rounded border border-[#2a2a2a] bg-[#141414] px-3 py-2">
-                  <span className="text-sm text-[#666]">Category</span>
-                  <span className="text-sm text-[#e8e8e8] font-mono">Full-Stack</span>
-                </div>
-                <div className="flex items-center justify-between rounded border border-[#2a2a2a] bg-[#141414] px-3 py-2">
-                  <span className="text-sm text-[#666]">Framework</span>
-                  <span className="text-sm text-[#e8e8e8] font-mono">Next.js App Router</span>
-                </div>
-                <div className="flex items-center justify-between rounded border border-[#2a2a2a] bg-[#141414] px-3 py-2">
-                  <span className="text-sm text-[#666]">Pkg Manager</span>
-                  <span className="text-sm text-[#e8e8e8] font-mono">pnpm</span>
-                </div>
-              </div>
-            </article>
-
-            <article className="bg-[#141414] border border-[#2a2a2a] rounded-xl p-7 overflow-hidden">
-              <h3 className="text-2xl font-normal tracking-tight mb-2">15+ Supported Scaffolds</h3>
-              <p className="text-base text-[#666] leading-relaxed mb-6">
-                Pick from a broad registry of production-ready starter templates for any stack.
-              </p>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="rounded border border-[#333] bg-[#111] p-4">
-                  <p className="text-sm text-[#666] mb-2">Frontend</p>
-                  <p className="text-sm text-[#e8e8e8] font-mono">React+Vite</p>
-                </div>
-                <div className="rounded border border-[#333] bg-[#111] p-4">
-                  <p className="text-sm text-[#666] mb-2">Backend</p>
-                  <p className="text-sm text-[#e8e8e8] font-mono">Node+Express</p>
-                </div>
-                <div className="rounded border border-[#333] bg-[#111] p-4">
-                  <p className="text-sm text-[#666] mb-2">Mobile</p>
-                  <p className="text-sm text-[#e8e8e8] font-mono">React Native</p>
-                </div>
-                <div className="rounded border border-[#333] bg-[#111] p-4">
-                  <p className="text-sm text-[#666] mb-2">Extension</p>
-                  <p className="text-sm text-[#e8e8e8] font-mono">Chrome MV3</p>
-                </div>
-              </div>
-            </article>
-
-            <article className="bg-[#141414] border border-[#2a2a2a] rounded-xl p-7 overflow-hidden">
-              <h3 className="text-2xl font-normal tracking-tight mb-2">Extensible Architecture</h3>
-              <p className="text-base text-[#666] leading-relaxed mb-6">
-                Powered by Handlebars templates and a modular CLI generator architecture.
-              </p>
-              <div className="bg-[#111] border border-[#333] rounded-lg p-4 font-mono text-sm leading-relaxed">
-                <p className="text-[#666]">
-                  {"// src/config/frameworks.js"}
-                </p>
-                <p className="text-[#666]">
-                  <span className="text-[#ff6b00]">export</span> <span className="text-[#e8e8e8]">const frameworks</span> = [
-                </p>
-                <p className="text-[#666]">
-                  {"  {"} <span className="text-[#e8e8e8]">&quot;name&quot;: &quot;frontend&quot;</span>, <span className="text-[#e8e8e8]">...</span> {"}"}
-                </p>
-                <p className="text-[#666]">
-                  ];
-                </p>
-              </div>
-            </article>
-
-            <article className="bg-[#141414] border border-[#2a2a2a] rounded-xl p-7 overflow-hidden">
-              <h3 className="text-2xl font-normal tracking-tight mb-2">
-                Plug-and-Play Tooling
-              </h3>
-              <p className="text-base text-[#666] leading-relaxed mb-6">
-                Includes ready-to-run scripts and baseline files so you can start coding
-                instantly.
-              </p>
-              <div className="bg-[#111] border border-[#333] rounded-lg p-5">
-                <ul className="space-y-3 text-sm">
-                  <li className="flex items-center gap-2 text-[#e8e8e8]">
-                    <span aria-hidden="true" className="text-[#ff6b00]">✓</span>
-                    npm scripts for dev and build
-                  </li>
-                  <li className="flex items-center gap-2 text-[#e8e8e8]">
-                    <span aria-hidden="true" className="text-[#ff6b00]">✓</span>
-                    README and package metadata
-                  </li>
-                  <li className="flex items-center gap-2 text-[#e8e8e8]">
-                    <span aria-hidden="true" className="text-[#ff6b00]">✓</span>
-                    Icons placeholder set
-                  </li>
-                </ul>
-              </div>
-            </article>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            {homeContent.features.cards.map((card) => (
+              <FeatureCard key={card.title} {...card} />
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="py-24 border-t border-[#1a1a1a] bg-[#0d0d0d] overflow-hidden">
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <p className="text-sm font-mono text-[#666] uppercase tracking-widest mb-10">
-            Universal Template Ecosystem
-          </p>
-          <div className="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-60">
-            <div className="flex flex-col items-center gap-3 hover:opacity-100 transition-opacity">
-              <span aria-hidden="true" className="text-4xl">⚛</span>
-              <span className="text-base font-normal tracking-tight">React</span>
-            </div>
-            <div className="flex flex-col items-center gap-3 hover:opacity-100 transition-opacity">
-              <span aria-hidden="true" className="text-4xl">▲</span>
-              <span className="text-base font-normal tracking-tight">Next.js</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="usage" className="py-32 border-t border-[#1a1a1a] bg-[#0d0d0d]">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-20">
-            <div id="output">
-              <h2 className="text-3xl md:text-4xl font-mono font-normal tracking-tight mb-10">
-                CLI usage guide.
-              </h2>
-
-              <div className="space-y-12">
-                <div className="relative pl-8 border-l border-[#2a2a2a]">
-                  <div className="absolute -left-4.25 top-0 w-8 h-8 rounded-full bg-[#111] border border-[#333] flex items-center justify-center text-[#ff6b00] font-mono text-sm">
-                    1
-                  </div>
-                  <h3 className="text-xl font-normal tracking-tight mb-4">Installation</h3>
-                  <div className="bg-[#111] border border-[#333] rounded px-4 py-3 font-mono text-sm sm:text-base flex items-center justify-between">
-                    <span className="text-[#e8e8e8]">npm install -g bextool</span>
-                    <CopyButton
-                      text="npm install -g bextool"
-                      className="text-base text-[#666] hover:text-[#e8e8e8] transition-colors flex items-center"
-                    />
-                  </div>
-                </div>
-
-                <div className="relative pl-8 border-l border-[#2a2a2a]">
-                  <div className="absolute -left-4.25 top-0 w-8 h-8 rounded-full bg-[#111] border border-[#333] flex items-center justify-center text-[#ff6b00] font-mono text-sm">
-                    2
-                  </div>
-                  <h3 className="text-xl font-normal tracking-tight mb-4">Run the CLI</h3>
-                  <div className="bg-[#111] border border-[#333] rounded px-4 py-3 font-mono text-sm sm:text-base flex items-center justify-between">
-                    <span className="text-[#e8e8e8]">bextool</span>
-                    <CopyButton
-                      text="bextool"
-                      className="text-base text-[#666] hover:text-[#e8e8e8] transition-colors flex items-center"
-                    />
-                  </div>
-                </div>
-
-                <div className="relative pl-8 border-l border-transparent">
-                  <div className="absolute -left-4.25 top-0 w-8 h-8 rounded-full bg-[#111] border border-[#333] flex items-center justify-center text-[#ff6b00] font-mono text-sm">
-                    3
-                  </div>
-                  <h3 className="text-xl font-normal tracking-tight mb-2">
-                    Follow the prompts
-                  </h3>
-                  <p className="text-base text-[#666] leading-relaxed">
-                    The CLI will prompt you for:{" "}
-                    <span className="text-[#e8e8e8]">project category</span>,{" "}
-                    <span className="text-[#e8e8e8]">framework</span>,{" "}
-                    <span className="text-[#e8e8e8]">package manager</span>, as well as{" "}
-                    shared metadata like <span className="text-[#e8e8e8]">name</span> and{" "}
-                    <span className="text-[#e8e8e8]">description</span>.
-                  </p>
-                </div>
-              </div>
-            </div>
-
+      <section id="usage" className="bg-[#0d0d0d] py-24">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="grid gap-14 lg:grid-cols-2">
             <div>
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-mono font-normal tracking-tight">
-                  Generated starter output
-                </h2>
-                <span className="text-sm text-[#666] font-mono">Next.js App Router</span>
-              </div>
+              <p className="text-xs font-mono uppercase tracking-[0.2em] text-[#7d838d]">
+                {homeContent.usage.eyebrow}
+              </p>
+              <h2 className="mt-4 text-3xl font-mono tracking-tight text-[#ece9e4] sm:text-5xl">
+                {homeContent.usage.title}
+              </h2>
+              <p className="mt-4 max-w-xl text-base leading-relaxed text-[#9c978f]">
+                {homeContent.usage.description}
+              </p>
 
+              <div className="mt-10 space-y-8">
+                {homeContent.usage.steps.map((step) => (
+                  <div key={step.number} className="border-l border-[#2f3742] pl-5">
+                    <p className="text-xs font-mono uppercase tracking-[0.2em] text-[#7d838d]">
+                      Step {step.number}
+                    </p>
+                    <h3 className="mt-2 text-xl tracking-tight text-[#ece9e4]">{step.title}</h3>
+                    {"command" in step ? (
+                      <div className="mt-4 flex flex-col gap-2 rounded-md border border-[#2f3742] bg-[#121821] px-4 py-3 font-mono text-sm text-[#ece9e4] sm:flex-row sm:items-center sm:justify-between">
+                        <span>{step.command}</span>
+                        <CopyButton
+                          text={step.command}
+                          className="text-[#7d838d] transition-colors hover:text-[#ece9e4]"
+                        />
+                      </div>
+                    ) : (
+                      <p className="mt-3 text-base leading-relaxed text-[#9c978f]">{step.description}</p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div id="output">
+              <div className="mb-6 flex items-center justify-between">
+                <h2 className="text-2xl font-mono tracking-tight text-[#ece9e4]">
+                  {homeContent.usage.outputTitle}
+                </h2>
+                <span className="text-xs font-mono uppercase tracking-[0.15em] text-[#7d838d]">
+                  {homeContent.usage.outputLabel}
+                </span>
+              </div>
               <LazyOutputTabs />
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-24 border-t border-[#1a1a1a] bg-[#111]">
-        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12">
-          <div>
-            <h3 className="text-xl font-mono font-normal tracking-tight mb-6 flex items-center gap-2">
-              <span aria-hidden="true" className="text-[#ff6b00] text-2xl">&lt;/&gt;</span>
-              Local CLI development
-            </h3>
-            <p className="text-base text-[#666] mb-4">
-              Run the CLI locally from the repository with:
-            </p>
-            <div className="bg-[#1a1a1a] border border-[#333] rounded px-4 py-3 font-mono text-sm text-[#e8e8e8] flex flex-col gap-1">
-              <span>npm install</span>
-              <span>npm start</span>
+      <section className="bg-[#0d0d0d] py-24">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="grid gap-10 md:grid-cols-[1.1fr_1fr]">
+            <div>
+              <p className="text-xs font-mono uppercase tracking-[0.2em] text-[#7d838d]">
+                {homeContent.teamVelocity.eyebrow}
+              </p>
+              <h2 className="mt-4 text-3xl font-mono tracking-tight text-[#ece9e4] sm:text-5xl">
+                {homeContent.teamVelocity.title}
+              </h2>
+              <p className="mt-5 max-w-2xl text-base leading-relaxed text-[#a49d93]">
+                {homeContent.teamVelocity.description}
+              </p>
             </div>
-          </div>
-          <div>
-            <h3 className="text-xl font-mono font-normal tracking-tight mb-6 flex items-center gap-2">
-              <span aria-hidden="true" className="text-[#ff6b00] text-2xl">□</span>
-              npm publish checklist
-            </h3>
-            <p className="text-base text-[#666] mb-4">
-              Before publishing the package to npm, ensure you run:
-            </p>
-            <div className="bg-[#1a1a1a] border border-[#333] rounded px-4 py-3 font-mono text-sm text-[#e8e8e8] flex flex-col gap-1">
-              <span>npm test</span>
-              <span>npm pack --dry-run</span>
+
+            <div className="space-y-5">
+              {homeContent.teamVelocity.cards.map((card) => (
+                <article key={card.title} className="rounded-xl border border-[#2f3742] bg-[#0f141a] p-5">
+                  <h3 className="font-mono text-sm uppercase tracking-[0.16em] text-[#9c978f]">
+                    {card.title}
+                  </h3>
+                  <pre className="mt-3 overflow-x-auto rounded-md border border-[#2f3742] bg-[#0a0e14] p-3 font-mono text-sm text-[#ece9e4]">
+                    <code>{card.command}</code>
+                  </pre>
+                </article>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      <section id="contributors" className="py-24 border-t border-[#1a1a1a] bg-[#0d0d0d]">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="mb-10 flex flex-col gap-3">
-            <p className="text-sm font-mono text-[#666] uppercase tracking-widest">
-              Community
+      <section id="contributors" className="bg-[#0d0d0d] py-24">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="mb-10 max-w-2xl">
+            <p className="text-xs font-mono uppercase tracking-[0.2em] text-[#7d838d]">
+              {homeContent.contributors.eyebrow}
             </p>
-            <h2 className="text-3xl md:text-4xl font-mono font-normal tracking-tight">
-              CLI project contributors.
+            <h2 className="mt-4 text-3xl font-mono tracking-tight text-[#ece9e4] sm:text-5xl">
+              {homeContent.contributors.title}
             </h2>
-            <p className="text-base md:text-lg text-[#666] max-w-2xl">
-              The project is built and maintained by contributors driving CLI ergonomics,
-              release quality, and cross-browser support.
+            <p className="mt-4 text-base leading-relaxed text-[#9c978f]">
+              {homeContent.contributors.description}
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <a
-              href="https://github.com/Abhiraj35"
-              target="_blank"
-              rel="noreferrer"
-              className="group bg-[#141414] border border-[#2a2a2a] rounded-xl p-6 hover:border-[#666] transition-colors"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-[#1f1f1f] border border-[#333] text-[#ff6b00] font-mono flex items-center justify-center">
-                    A
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            {siteConfig.contributors.map((contributor) => (
+              <a
+                key={contributor.href}
+                href={contributor.href}
+                target="_blank"
+                rel="noreferrer"
+                className="group rounded-xl border border-[#2f3742] bg-[#121212] p-6 transition-colors hover:border-[#46505e]"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex items-center gap-4">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full border border-[#38404b] bg-[#0d1218] font-mono text-[#c97a45]">
+                      {contributor.initial}
+                    </div>
+                    <div>
+                      <p className="text-xl tracking-tight text-[#ece9e4]">{contributor.name}</p>
+                      <p className="text-sm font-mono text-[#7d838d]">{contributor.handle}</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-xl font-normal tracking-tight text-[#e8e8e8]">
-                      Abhiraj
-                    </p>
-                    <p className="text-sm text-[#666] font-mono">@Abhiraj35</p>
-                  </div>
+                  <LinkIcon className="h-5 w-5 text-[#7d838d] transition-colors group-hover:text-[#ece9e4]" />
                 </div>
-                <span
-                  aria-hidden="true"
-                  className="text-xl text-[#666] group-hover:text-[#e8e8e8] transition-colors"
-                >
-                  ↗
-                </span>
-              </div>
-              <p className="mt-4 text-sm text-[#666] leading-relaxed">
-                Contributor focused on project direction, developer experience, and
-                launch-ready scaffolding quality.
-              </p>
-            </a>
+                <p className="mt-4 text-sm leading-relaxed text-[#9c978f]">{contributor.bio}</p>
+              </a>
+            ))}
+          </div>
 
-            <a
-              href="https://github.com/Shubham-1068"
-              target="_blank"
-              rel="noreferrer"
-              className="group bg-[#141414] border border-[#2a2a2a] rounded-xl p-6 hover:border-[#666] transition-colors"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-[#1f1f1f] border border-[#333] text-[#ff6b00] font-mono flex items-center justify-center">
-                    S
-                  </div>
-                  <div>
-                    <p className="text-xl font-normal tracking-tight text-[#e8e8e8]">
-                      Shubham Raj
-                    </p>
-                    <p className="text-sm text-[#666] font-mono">@Shubham-1068</p>
-                  </div>
-                </div>
-                <span
-                  aria-hidden="true"
-                  className="text-xl text-[#666] group-hover:text-[#e8e8e8] transition-colors"
-                >
-                  ↗
-                </span>
-              </div>
-              <p className="mt-4 text-sm text-[#666] leading-relaxed">
-                Maintainer focused on CLI reliability, npm distribution, and developer
-                onboarding flow.
-              </p>
-            </a>
+          <div className="mt-16 rounded-2xl border border-[#2f3742] bg-[radial-gradient(circle_at_20%_0%,rgba(201,122,69,.16),transparent_40%),#0d0d0d] p-8 text-center sm:p-10">
+            <h3 className="text-2xl font-mono tracking-tight text-[#ece9e4] sm:text-3xl">
+              {homeContent.cta.title}
+            </h3>
+            <p className="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-[#9c978f]">
+              {homeContent.cta.description}
+            </p>
+            <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <a
+                href={homeContent.cta.primary.href}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex w-full items-center justify-center rounded-full border border-[#c97a45] bg-[#c97a45] px-6 py-3 font-mono text-sm uppercase tracking-[0.1em] text-[#14171b] transition-colors hover:bg-[#d98953] sm:w-auto"
+              >
+                {homeContent.cta.primary.label}
+              </a>
+              <a
+                href={homeContent.cta.secondary.href}
+                className="inline-flex w-full items-center justify-center rounded-full border border-[#3c4552] bg-[#121821] px-6 py-3 font-mono text-sm uppercase tracking-[0.1em] text-[#ece9e4] transition-colors hover:border-[#586373] hover:bg-[#171e28] sm:w-auto"
+              >
+                {homeContent.cta.secondary.label}
+              </a>
+            </div>
           </div>
         </div>
       </section>

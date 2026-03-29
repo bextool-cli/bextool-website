@@ -51,7 +51,6 @@ export const docsNavigation: DocsNavGroup[] = [
     title: "Ecosystem",
     links: [
       { label: "Supported Starters", href: "#supported-frameworks" },
-      { label: "Add Your Own Template", href: "#extending-the-cli" },
     ],
   },
   {
@@ -158,28 +157,4 @@ export const supportedTemplatesContent = {
   moreLabel: "+ 8 more scaffolds...",
 };
 
-export const extendingCliContent = {
-  title: "Extending the CLI (Advanced)",
-  body:
-    "Bextool boasts a highly modular architecture. Adding a brand new scaffold or framework is incredibly simple using the centralized src/config/frameworks.js registry.",
-  stepsTitle: "How to create a new starter template:",
-  steps: [
-    {
-      title: "Add Template Assets",
-      body: "Put your boilerplate files into a new subdirectory in templates/. These templates utilize Handlebars (.hbs syntax) to inject user config.",
-      code: ["templates/"],
-    },
-    {
-      title: "Create a Generator Module",
-      body: "Under src/generators/, add the code defining what specific prompts it needs and how it executes its build.",
-      code: ["src/generators/"],
-    },
-    {
-      title: "Register the Framework",
-      body: "Simply append your new module to the array in src/config/frameworks.js.",
-      code: ["src/config/frameworks.js"],
-    },
-  ] satisfies DocsOrderedItem[],
-  note:
-    "Once you do this, running `npm test` locally within the repository will automatically generate syntax checks and smoke integrations for your brand new framework setup!",
-};
+
