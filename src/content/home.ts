@@ -5,7 +5,7 @@ import { siteConfig } from "@/lib/site";
 export type HomeFeatureCard = {
   title: string;
   description: string;
-  variant: "metrics" | "templates" | "code" | "checklist";
+  variant: "metrics" | "templates" | "code" | "checklist" | "npm-stats";
   items: { label?: string; value: string }[];
 };
 
@@ -29,7 +29,6 @@ export const homeContent = {
   transition: {
     statsLabel: "Supported by",
     statsTitle: "15+ Templates",
-    statsCaption: "4.9 Average user rating",
     categories: [
       ["Frontend", "Backend", "Full-Stack", "Mobile", "Static Site", "CLI Tool", "Browser Extension"],
       ["Editor Extension", "CMS (WordPress)", "Data Science", "Microservice", "NPM Package", "Workflow Automation", "Desktop App"],
@@ -142,12 +141,6 @@ export const homeContent = {
     description:
       "bextool is maintained in the open with a strong emphasis on CLI ergonomics, release reliability, and developer experience.",
     cardIcon: LinkIcon,
-  },
-  cta: {
-    title: "Ready to start your next project with less setup friction?",
-    description: "Install bextool once and scaffold production-ready starter apps in minutes.",
-    primary: { label: "Install from npm", href: siteConfig.links.npm },
-    secondary: { label: "Read documentation", href: siteConfig.links.docs },
   },
   outputTabs: [
     {

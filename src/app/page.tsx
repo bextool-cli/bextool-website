@@ -321,30 +321,6 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="mt-16 rounded-2xl border border-[#2f3742] bg-[radial-gradient(circle_at_20%_0%,rgba(201,122,69,.16),transparent_40%),#0d0d0d] p-8 text-center sm:p-10">
-            <h3 className="text-2xl font-mono tracking-tight text-[#ece9e4] sm:text-3xl">
-              {homeContent.cta.title}
-            </h3>
-            <p className="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-[#9c978f]">
-              {homeContent.cta.description}
-            </p>
-            <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <a
-                href={homeContent.cta.primary.href}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex w-full items-center justify-center rounded-full border border-[#c97a45] bg-[#c97a45] px-6 py-3 font-mono text-sm uppercase tracking-[0.1em] text-[#14171b] transition-colors hover:bg-[#d98953] sm:w-auto"
-              >
-                {homeContent.cta.primary.label}
-              </a>
-              <a
-                href={homeContent.cta.secondary.href}
-                className="inline-flex w-full items-center justify-center rounded-full border border-[#3c4552] bg-[#121821] px-6 py-3 font-mono text-sm uppercase tracking-[0.1em] text-[#ece9e4] transition-colors hover:border-[#586373] hover:bg-[#171e28] sm:w-auto"
-              >
-                {homeContent.cta.secondary.label}
-              </a>
-            </div>
-          </div>
         </div>
       </section>
     </main>

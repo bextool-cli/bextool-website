@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import { NpmDownloadCount } from "@/components/NpmStats";
 
 import { homeContent } from "@/content/home";
 
@@ -47,14 +48,15 @@ export default function TransitionSection() {
               <h2 className="mb-4 text-3xl font-mono font-normal tracking-tight text-[#ece9e4]">
                 {homeContent.transition.statsTitle}
               </h2>
-              <div className="flex items-center gap-2 text-sm text-[#9c978f]">
-                <div className="flex text-[#ff6b00]">
-                  {homeContent.stars.map((star) => {
-                    const StarIcon = homeContent.starIcon;
-                    return <StarIcon key={star} className="h-4 w-4 fill-current" />;
-                  })}
+              <div className="flex flex-wrap items-center gap-4">
+                <div className="flex items-center gap-2 text-sm text-[#9c978f]">
+                  <svg className="h-4 w-4 text-[#ff6b00]" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
+                  </svg>
+                  <span className="font-mono">
+                    <NpmDownloadCount /> NPM Downloads
+                  </span>
                 </div>
-                <span className="font-mono">{homeContent.transition.statsCaption}</span>
               </div>
             </motion.div>
 

@@ -23,7 +23,7 @@ export type ContentPage = {
 
 export const siteConfig = {
   name: "bextool",
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "https://bextool.dev",
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "https://bextool.tech",
   description:
     "bextool is an open-source CLI that scaffolds production-ready starter apps for frontend, backend, full-stack, mobile, browser extensions, and more.",
   shortDescription:
