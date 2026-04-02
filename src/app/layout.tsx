@@ -106,7 +106,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={cn("font-sans", geist.variable)}>
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} ${caveat.variable} font-light selection:bg-[#ff6b00] selection:text-[#0d0d0d]`}
+        className="min-h-screen bg-[#0a0a0a] font-sans antialiased selection:bg-[#ff6b00] selection:text-white"
       >
         <a
           href="#main-content"
@@ -123,7 +123,9 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
         <Navbar />
-        {children}
+        <main id="main-content">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>
