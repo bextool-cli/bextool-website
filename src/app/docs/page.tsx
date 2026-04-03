@@ -1,7 +1,8 @@
 import { Metadata } from "next";
 import DocsHighlighter from "@/components/DocsHighlighter";
 import { Icon } from "@iconify/react";
-import CopyCodeButton from "@/components/CopyCodeButton";
+
+import CommandCopy from "@/components/CommandCopy";
 import {
   cliCommandsContent,
   docsIntro,
@@ -188,12 +189,11 @@ export default function Docs() {
             {installationContent.examples.map((example) => (
               <div key={example.title}>
                 <h3 className="text-xl font-medium text-[#e8e8e8] mb-3 mt-8">{example.title}</h3>
-                <div className="bg-[#111] border border-[#333] rounded-xl overflow-hidden mb-6 relative group">
-                  <CopyCodeButton text={example.command} />
-                  <pre className="p-5 text-sm overflow-x-auto">
-                    <code className="language-bash">{example.command}</code>
-                  </pre>
-                </div>
+                <CommandCopy
+                  command={example.command}
+                  className="mb-6"
+                  codeClassName="scrollbar-hide overflow-x-auto whitespace-nowrap"
+                />
               </div>
             ))}
           </section>
@@ -246,18 +246,11 @@ export default function Docs() {
                   <h3 className="text-lg font-medium text-[#e8e8e8] tracking-tight mb-4">
                     {step.title}
                   </h3>
-                  <div className="bg-[#050505] border border-[#333] rounded px-4 py-3 font-mono text-sm text-[#e8e8e8] flex flex-col gap-2 relative group">
-                    <CopyCodeButton text={step.copyText} className="absolute top-1.5 right-1.5 z-10 p-1.5" />
-                    {"command" in step ? (
-                      <span>{step.command}</span>
-                    ) : (
-                      step.commandLines.map((line) => (
-                        <span key={line} className={line.startsWith("#") ? "text-[#666]" : undefined}>
-                          {line.startsWith("#") ? line : line}
-                        </span>
-                      ))
-                    )}
-                  </div>
+                  <CommandCopy
+                    command={"command" in step ? (step.command ?? "") : step.commandLines.join("\n")}
+                    copyText={step.copyText}
+                    codeClassName="whitespace-pre-wrap"
+                  />
                 </div>
               ))}
             </div>

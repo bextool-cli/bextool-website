@@ -44,3 +44,27 @@ export function NpmDownloadCount() {
   );
 }
 
+async function fetchNpmVersion(): Promise<string> {
+  try {
+    const res = await fetch("https://registry.npmjs.org/bextool/latest");
+    if (!res.ok) return "unknown";
+    const data = await res.json();
+    return data.version as string;
+  } catch {
+    return "unknown";
+  }
+}
+
+export function NpmVersion() {
+  const [version, setVersion] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetchNpmVersion().then(setVersion);
+  }, []);
+
+  if (version === null) {
+    return <span className="animate-pulse">-</span>;
+  }
+
+  return <span>{version}</span>;
+}

@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { NpmVersion } from "@/components/NpmStats";
+import { ArrowRightIcon } from "lucide-react";
 
+import CommandCopy from "@/components/CommandCopy";
+import { Announcement, AnnouncementTag, AnnouncementTitle } from "@/components/ui/announcement";
 import TransitionSection from "@/components/TransitionSection";
-import CopyButton from "@/components/CopyButton";
 import LazyOutputTabs from "@/components/LazyOutputTabs";
 import Buttons from "@/components/ui/buttons";
 import { homeContent } from "@/content/home";
@@ -47,11 +50,14 @@ function FeatureCard({
   description,
   variant,
   items,
-}: (typeof homeContent.features.cards)[number]) {
+  className,
+}: (typeof homeContent.features.cards)[number] & { className?: string }) {
   return (
-    <article className="overflow-hidden rounded-xl border border-[#2a2a2a] bg-[#141414] p-7">
-      <h3 className="mb-2 text-2xl font-normal tracking-tight">{title}</h3>
-      <p className="mb-6 text-base leading-relaxed text-[#666]">{description}</p>
+    <article className={`flex flex-col justify-between overflow-hidden rounded-3xl border border-[#2a2a2a] bg-linear-to-b from-[#1c1c1c]/50 to-[#0a0a0a] p-8 backdrop-blur-md transition-all hover:border-[#444] ${className || ""}`}>
+      <div>
+        <h3 className="mb-2 text-2xl font-medium tracking-tight text-[#f0f0f0]">{title}</h3>
+        <p className="mb-8 text-base leading-relaxed text-[#999]">{description}</p>
+      </div>
 
       {variant === "metrics" ? (
         <div className="space-y-3 rounded-lg border border-[#333] bg-[#111] p-4">
@@ -136,21 +142,36 @@ export default function Home() {
 
       <section id="home" className="relative overflow-hidden bg-[#0d0d0d]">
         <div className="relative z-10 mx-auto max-w-6xl px-4 pb-18 pt-16 sm:px-6 md:pt-20 lg:pt-24">
-          <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
+          <div className="mx-auto flex max-w-5xl flex-col items-center text-center">
+            <Announcement
+              variant="outline"
+              className="h-auto gap-0 border-[#2b3540] bg-[#0d1218]/95 px-2 py-0.5 text-[#d9dee6] shadow-[0_14px_40px_rgba(0,0,0,.32)]"
+            >
+              <AnnouncementTag className="ml-0 bg-[#ff6b00]/12 px-2.5 py-1 text-[11px] font-medium text-[#ffb37b]">
+                New
+              </AnnouncementTag>
+              <AnnouncementTitle className="px-2 py-1 text-[13px] font-normal tracking-[-0.01em] text-[#dfe5ee]">
+                Introducing bextool <NpmVersion />
+                <ArrowRightIcon className="size-4 text-[#8b95a3] transition-transform group-hover:translate-x-0.5" />
+              </AnnouncementTitle>
+            </Announcement>
 
-            <h1 className="mt-8 lg:pt-28 text-3xl font-mono leading-[1.04] tracking-tight text-[#ece9e4] text-balance sm:text-5xl lg:text-7xl">
+            <h1 className="mt-8 max-w-4xl text-4xl font-semibold leading-[1.04] tracking-[-0.04em] text-balance text-transparent bg-linear-to-b from-white via-[#ece8e2] to-neutral-500 bg-clip-text md:text-6xl lg:text-7xl">
               {homeContent.hero.title}
             </h1>
-            <p className="mt-6 max-w-3xl text-base leading-relaxed text-[#9c978f] sm:text-lg">
+            <p className="mt-6 max-w-3xl text-balance text-base leading-8 text-[#a6a199] sm:text-lg md:text-xl">
               {homeContent.hero.description}
             </p>
+              <div className="mt-10 flex w-full justify-center">
+                <Buttons />
+              </div>
 
-            <div className="mt-10 flex w-full justify-center">
-              <Buttons />
-            </div>
+            <p className="mt-4 text-sm text-[#788190]">
+              Designed to move from idea to installable project in one guided pass.
+            </p>
           </div>
 
-          <div className="mt-12 overflow-hidden rounded-2xl border border-[#2f3742] bg-[#07090d]/80 shadow-[0_35px_120px_rgba(0,0,0,.55)] backdrop-blur-sm">
+          <div className="mt-14 overflow-hidden rounded-[1.75rem] border border-[#2f3742] bg-[#07090d]/80 shadow-[0_35px_120px_rgba(0,0,0,.55)] backdrop-blur-sm">
             <div className="flex items-center gap-2 border-b border-[#2f3742] bg-[#0f141a]/80 px-4 py-3">
               <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f56]" />
               <span className="h-2.5 w-2.5 rounded-full bg-[#ffbd2e]" />
@@ -181,27 +202,31 @@ export default function Home() {
 
       <section id="features" className="bg-[#0d0d0d] py-24">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="mb-14">
-            <p className="mb-4 text-sm font-mono uppercase tracking-widest text-[#666]">
+          <div className="mb-16 text-center">
+            <p className="mb-4 text-sm font-mono uppercase tracking-widest text-[#888]">
               {homeContent.features.eyebrow}
             </p>
-            <h2 className="text-3xl font-mono font-normal leading-tight tracking-tight md:text-5xl">
+            <h2 className="text-3xl font-medium leading-tight tracking-tight text-[#f0f0f0] md:text-5xl">
               {homeContent.features.title}
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            {homeContent.features.cards.map((card) => (
-              <FeatureCard key={card.title} {...card} />
+          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-3">
+            {homeContent.features.cards.map((card, idx) => (
+              <FeatureCard 
+                key={card.title} 
+                {...card} 
+                className={idx === 0 || idx === 3 ? "md:col-span-2" : "md:col-span-1"}
+              />
             ))}
           </div>
         </div>
       </section>
 
-      <section id="usage" className="bg-[#0d0d0d] py-24">
+      <section id="usage" className="bg-[#0d0d0d] py-16 sm:py-20 lg:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="grid gap-14 lg:grid-cols-2">
-            <div>
+          <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
+            <div className="min-w-0">
               <p className="text-xs font-mono uppercase tracking-[0.2em] text-[#7d838d]">
                 {homeContent.usage.eyebrow}
               </p>
@@ -212,21 +237,15 @@ export default function Home() {
                 {homeContent.usage.description}
               </p>
 
-              <div className="mt-10 space-y-8">
+              <div className="mt-8 space-y-7 sm:mt-10 sm:space-y-8">
                 {homeContent.usage.steps.map((step) => (
-                  <div key={step.number} className="border-l border-[#2f3742] pl-5">
+                  <div key={step.number} className="border-l border-[#2f3742] pl-4 sm:pl-5">
                     <p className="text-xs font-mono uppercase tracking-[0.2em] text-[#7d838d]">
                       Step {step.number}
                     </p>
                     <h3 className="mt-2 text-xl tracking-tight text-[#ece9e4]">{step.title}</h3>
                     {"command" in step ? (
-                      <div className="mt-4 flex flex-col gap-2 rounded-md border border-[#2f3742] bg-[#121821] px-4 py-3 font-mono text-sm text-[#ece9e4] sm:flex-row sm:items-center sm:justify-between">
-                        <span>{step.command}</span>
-                        <CopyButton
-                          text={step.command}
-                          className="text-[#7d838d] transition-colors hover:text-[#ece9e4]"
-                        />
-                      </div>
+                      <CommandCopy command={step.command} className="mt-4" />
                     ) : (
                       <p className="mt-3 text-base leading-relaxed text-[#9c978f]">{step.description}</p>
                     )}
@@ -235,14 +254,11 @@ export default function Home() {
               </div>
             </div>
 
-            <div id="output">
+            <div id="output" className="min-w-0">
               <div className="mb-6 flex items-center justify-between">
                 <h2 className="text-2xl font-mono tracking-tight text-[#ece9e4]">
                   {homeContent.usage.outputTitle}
                 </h2>
-                <span className="text-xs font-mono uppercase tracking-[0.15em] text-[#7d838d]">
-                  {homeContent.usage.outputLabel}
-                </span>
               </div>
               <LazyOutputTabs />
             </div>

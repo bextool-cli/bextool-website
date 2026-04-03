@@ -17,9 +17,11 @@ export type TransitionFeature = {
 
 export const homeContent = {
   hero: {
+    eyebrow: "Open source CLI for modern starter apps",
     title: "Ship production ready starter apps before your first coffee.",
     description:
-      "bextool scaffolds frontend, backend, full-stack, mobile, and extension projects from a single guided flow so your team starts with real architecture, not boilerplate.",
+      "bextool scaffolds frontend, backend, full-stack, mobile, and extension projects from a single guided flow, so your team starts with real architecture, not boilerplate.",
+    highlights: ["One guided flow", "15+ project types", "Production-ready defaults"],
     terminalLabel: "bextool session",
     image: {
       src: "/hero/demo.avif",
@@ -53,21 +55,21 @@ export const homeContent = {
   },
   features: {
     eyebrow: "Features",
-    title: "Scaffolding features for every stack.",
+    title: "Scaffolding for every stack.",
     cards: [
       {
         title: "Guided CLI Flow",
-        description: "A clean interactive app scaffolding flow that generates starter projects in minutes.",
+        description: "Interactive scaffolding that generates starter projects in minutes.",
         variant: "metrics",
         items: [
           { label: "Category", value: "Full-Stack" },
-          { label: "Framework", value: "Next.js App Router" },
+          { label: "Framework", value: "Next.js" },
           { label: "Pkg Manager", value: "pnpm" },
         ],
       },
       {
-        title: "15+ Supported Scaffolds",
-        description: "Pick from a broad registry of production-ready starter templates for any stack.",
+        title: "15+ Scaffolds",
+        description: "Production-ready templates for any stack.",
         variant: "templates",
         items: [
           { label: "Frontend", value: "React+Vite" },
@@ -77,8 +79,8 @@ export const homeContent = {
         ],
       },
       {
-        title: "Extensible Architecture",
-        description: "Powered by Handlebars templates and a modular CLI generator architecture.",
+        title: "Extensible",
+        description: "Powered by Handlebars templates and modular generators.",
         variant: "code",
         items: [
           { value: "// src/config/frameworks.js" },
@@ -88,13 +90,13 @@ export const homeContent = {
         ],
       },
       {
-        title: "Plug-and-Play Tooling",
-        description: "Includes ready-to-run scripts and baseline files so you can start coding instantly.",
+        title: "Plug-and-Play",
+        description: "Ready-to-run scripts and baseline files to start coding instantly.",
         variant: "checklist",
         items: [
           { value: "npm scripts for dev and build" },
           { value: "Linting and formatter setup" },
-          { value: "Production-aware starter structure" },
+          { value: "Production-aware structure" },
         ],
       },
     ] satisfies HomeFeatureCard[],
@@ -123,7 +125,6 @@ export const homeContent = {
       },
     ],
     outputTitle: "Generated starter output",
-    outputLabel: "Next.js App Router",
   },
   teamVelocity: {
     eyebrow: "Team velocity",

@@ -1,17 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 
-import CopyCodeButton from "@/components/CopyCodeButton";
+import { CodeBlock, CodeBlockCopyButton } from "@/components/ui/code-block";
 import { homeContent } from "@/content/home";
 
 export default function OutputTabs() {
   const [activeTab, setActiveTab] = useState<(typeof homeContent.outputTabs)[number]["id"]>(homeContent.outputTabs[0].id);
-  const codeViewportRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    codeViewportRef.current?.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
-  }, [activeTab]);
 
   const activeSnippet = useMemo(
     () => homeContent.outputTabs.find((tab) => tab.id === activeTab) ?? homeContent.outputTabs[0],
@@ -19,29 +14,33 @@ export default function OutputTabs() {
   );
 
   return (
-    <div className="flex h-125 flex-col overflow-hidden rounded-xl border border-[#333] bg-[#111]">
-      <div className="flex border-b border-[#333] bg-[#1a1a1a] font-mono text-sm sm:text-base">
+    <div className="overflow-hidden rounded-xl border border-[#2f3742] bg-[#0f141a]">
+      <div className="overflow-x-auto border-b border-[#2f3742] bg-[#121820]">
+        <div className="flex min-w-max font-mono text-xs sm:text-sm">
         {homeContent.outputTabs.map((tab) => (
           <button
             key={tab.id}
             type="button"
             onClick={() => setActiveTab(tab.id)}
-            className={`border-r border-[#333] px-6 py-3 transition-colors focus:outline-none ${
-              activeTab === tab.id ? "bg-[#111] text-[#e8e8e8]" : "bg-transparent text-[#666] hover:text-[#e8e8e8]"
+            className={`shrink-0 border-r border-[#2f3742] px-4 py-3 transition-colors focus:outline-none sm:px-5 ${
+              activeTab === tab.id
+                ? "bg-[#0a0e14] text-[#ece9e4]"
+                : "bg-transparent text-[#7d838d] hover:text-[#ece9e4]"
             }`}
           >
             {tab.label}
           </button>
         ))}
+        </div>
       </div>
 
-      <div className="group relative flex-1">
-        <CopyCodeButton text={activeSnippet.code} className="absolute right-4 top-4 z-20 p-2 opacity-0 transition-opacity group-hover:opacity-100" />
-        <div ref={codeViewportRef} className="output-scroll h-full overflow-auto p-6 pr-20 font-mono text-sm leading-relaxed sm:text-base">
-          <pre className="min-w-max whitespace-pre-wrap text-[#e8e8e8]">
-            <code>{activeSnippet.code}</code>
-          </pre>
-        </div>
+      <div className="dark">
+        <CodeBlock code={activeSnippet.code} language={activeSnippet.language} className="rounded-none border-none bg-[#0a0e14]">
+          <CodeBlockCopyButton
+            className="h-8 w-8 border border-[#2f3742] bg-[#141c26] text-[#9aa4b3] hover:bg-[#1b2534] hover:text-[#e8edf6]"
+            aria-label={`Copy ${activeSnippet.label}`}
+          />
+        </CodeBlock>
       </div>
     </div>
   );
