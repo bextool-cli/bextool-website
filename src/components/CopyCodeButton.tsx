@@ -1,33 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import CopyButton from "@/components/CopyButton";
 
-interface CopyCodeButtonProps {
+type CopyCodeButtonProps = {
   text: string;
   className?: string;
-}
+};
 
 export default function CopyCodeButton({ text, className = "absolute top-3 right-3 z-10" }: CopyCodeButtonProps) {
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
   return (
-    <button
-      onClick={handleCopy}
-      className={`p-2 rounded-md bg-[#222]/80 backdrop-blur-sm border border-[#333] text-[#888] hover:text-[#e8e8e8] hover:bg-[#333] transition-all opacity-0 group-hover:opacity-100 focus:opacity-100 flex items-center justify-center cursor-pointer ${className}`}
-      aria-label="Copy code"
-      title="Copy code"
-    >
-      {copied ? (
-        <span aria-hidden="true" className="text-green-500 text-lg">✓</span>
-      ) : (
-        <span aria-hidden="true" className="text-lg">⧉</span>
+    <CopyButton
+      text={text}
+      copiedDurationMs={2000}
+      className={`flex cursor-pointer items-center justify-center rounded-md border border-[#333] bg-[#222]/80 p-2 text-[#888] opacity-0 backdrop-blur-sm transition-all group-hover:opacity-100 hover:bg-[#333] hover:text-[#e8e8e8] focus:opacity-100 ${className}`}
+      renderIcon={(copied) => (
+        <span aria-hidden="true" className={`text-lg ${copied ? "text-green-500" : ""}`}>
+          {copied ? "✓" : "⧉"}
+        </span>
       )}
-    </button>
+    />
   );
 }

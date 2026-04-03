@@ -1,14 +1,23 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { useState } from "react";
 
-interface CopyButtonProps {
+type CopyButtonProps = {
   text: string;
   className?: string;
   iconClassName?: string;
-}
+  copiedDurationMs?: number;
+  renderIcon?: (copied: boolean) => ReactNode;
+};
 
-export default function CopyButton({ text, className = "", iconClassName = "" }: CopyButtonProps) {
+export default function CopyButton({
+  text,
+  className = "",
+  iconClassName = "",
+  copiedDurationMs = 1500,
+  renderIcon,
+}: CopyButtonProps) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
@@ -18,27 +27,22 @@ export default function CopyButton({ text, className = "", iconClassName = "" }:
       }
 
       await navigator.clipboard.writeText(text);
-
       setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
-    } catch (err) {
-      console.error("Failed to copy:", err);
+      window.setTimeout(() => setCopied(false), copiedDurationMs);
+    } catch (error) {
+      console.error("Failed to copy:", error);
     }
   };
 
   return (
-    <button
-      type="button"
-      aria-label="Copy to clipboard"
-      onClick={handleCopy}
-      className={className}
-    >
-      <span
-        aria-hidden="true"
-        className={`${iconClassName} ${copied ? "text-[#27c93f]" : ""}`}
-      >
-        {copied ? "✓" : "⧉"}
-      </span>
+    <button type="button" aria-label="Copy to clipboard" onClick={handleCopy} className={className}>
+      {renderIcon ? (
+        renderIcon(copied)
+      ) : (
+        <span aria-hidden="true" className={`${iconClassName} ${copied ? "text-[#27c93f]" : ""}`}>
+          {copied ? "✓" : "⧉"}
+        </span>
+      )}
     </button>
   );
 }

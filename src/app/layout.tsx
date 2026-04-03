@@ -1,40 +1,36 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono, Caveat, Geist } from "next/font/google";
-import "./globals.css";
-import Navbar from "@/components/Navbar";
+import { Caveat, Geist, Inter, JetBrains_Mono } from "next/font/google";
+import type { ReactNode } from "react";
+
 import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 import { cn } from "@/lib/utils";
+import { siteConfig } from "@/lib/site";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+import "./globals.css";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://bextool.tech";
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
+const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
+const jetbrainsMono = JetBrains_Mono({ variable: "--font-jetbrains-mono", subsets: ["latin"] });
+const caveat = Caveat({ variable: "--font-caveat", subsets: ["latin"] });
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-});
-
-const caveat = Caveat({
-  variable: "--font-caveat",
-  subsets: ["latin"],
-});
+const sharedSocialImage = {
+  url: "/logo.png",
+  width: 512,
+  height: 512,
+  alt: `${siteConfig.name} logo`,
+};
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(siteConfig.siteUrl),
   title: {
-    default: "bextool — Multi-Project Scaffolding CLI",
-    template: "%s | bextool",
+    default: `${siteConfig.name} — Multi-Project Scaffolding CLI`,
+    template: `%s | ${siteConfig.name}`,
   },
-  description:
-    "bextool is an open-source CLI that scaffolds production-ready starter apps for frontend, backend, full-stack, mobile, browser extensions, and more.",
-  applicationName: "bextool",
+  description: siteConfig.description,
+  applicationName: siteConfig.name,
   keywords: [
-    "bextool",
+    siteConfig.name,
     "project scaffolding CLI",
     "app generator CLI",
     "Next.js starter",
@@ -65,25 +61,16 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "/",
-    siteName: "bextool",
-    title: "bextool — Multi-Project Scaffolding CLI",
-    description:
-      "Scaffold modern starter apps instantly with one interactive CLI flow.",
-    images: [
-      {
-        url: "/logo.png",
-        width: 512,
-        height: 512,
-        alt: "bextool logo",
-      },
-    ],
+    siteName: siteConfig.name,
+    title: `${siteConfig.name} — Multi-Project Scaffolding CLI`,
+    description: "Scaffold modern starter apps instantly with one interactive CLI flow.",
+    images: [sharedSocialImage],
   },
   twitter: {
     card: "summary_large_image",
-    title: "bextool — Multi-Project Scaffolding CLI",
-    description:
-      "Scaffold modern starter apps instantly with one interactive CLI flow.",
-    images: ["/logo.png"],
+    title: `${siteConfig.name} — Multi-Project Scaffolding CLI`,
+    description: "Scaffold modern starter apps instantly with one interactive CLI flow.",
+    images: [sharedSocialImage.url],
   },
 };
 
@@ -96,35 +83,34 @@ export const viewport: Viewport = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   const websiteJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "bextool",
-    url: siteUrl,
-    description:
-      "Open-source multi-project scaffolding CLI for modern apps.",
+    name: siteConfig.name,
+    url: siteConfig.siteUrl,
+    description: siteConfig.shortDescription,
     inLanguage: "en",
   };
 
   const organizationJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "bextool",
-    url: siteUrl,
-    logo: `${siteUrl}/logo.png`,
-    sameAs: ["https://github.com/bextool-cli/bextool"],
+    name: siteConfig.name,
+    url: siteConfig.siteUrl,
+    logo: `${siteConfig.siteUrl}/logo.png`,
+    sameAs: [siteConfig.links.repository],
   };
 
   return (
     <html lang="en" className={cn("font-sans", geist.variable)}>
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} ${caveat.variable} selection:bg-[#ff6b00] selection:text-[#0d0d0d] font-light`}
+        className="min-h-screen bg-[#0a0a0a] font-sans antialiased selection:bg-[#ff6b00] selection:text-white"
       >
         <a
           href="#main-content"
-          className="sr-only hidden focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-100 focus:bg-[#111] focus:text-[#e8e8e8] focus:border focus:border-[#333] focus:px-3 focus:py-2 focus:rounded"
+          className="sr-only hidden focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-100 focus:rounded focus:border focus:border-[#333] focus:bg-[#111] focus:px-3 focus:py-2 focus:text-[#e8e8e8]"
         >
           Skip to content
         </a>
@@ -137,7 +123,9 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
         <Navbar />
-        {children}
+        <main id="main-content">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>
